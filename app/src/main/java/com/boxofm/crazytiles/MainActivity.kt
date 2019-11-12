@@ -1,14 +1,14 @@
 package com.boxofm.crazytiles
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     // private lateinit var binding: com.boxofm.crazytiles.databinding.ActivityMainBinding
 
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this, R.layout.activity_main)
 
-        binding.boxTwoText.setText("hasnain")
+        binding.boxTwoText.text = "hasnain"
         binding.boxTwoText.setTextColor(Color.BLACK)
 
         setListeners()
