@@ -5,11 +5,9 @@
     tools:context="com.boxofm.crazytiles.game.GameFragment">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="com.boxofm.crazytiles.game.GameViewModel" />
-
         <import type="androidx.core.content.ContextCompat" />
     </data>
 
@@ -38,7 +36,7 @@
             android:layout_height="160dp"
             android:layout_weight="1"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileOneColor)}"
-            android:onClick="@{() -> gameViewModel.tileClicked()}"
+            android:onClick="@{() -> gameViewModel.tileOneClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/box_two_text"
             app:layout_constraintBottom_toTopOf="@id/box_three_text"
             app:layout_constraintEnd_toStartOf="@+id/box_two_text"
@@ -53,6 +51,7 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileTwoColor)}"
+            android:onClick="@{() -> gameViewModel.tileTwoClicked()}"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toEndOf="@+id/box_one_text"
             app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
@@ -65,6 +64,7 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileThreeColor)}"
+            android:onClick="@{() -> gameViewModel.tileThreeClicked()}"
             app:layout_constraintEnd_toStartOf="@+id/box_four_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
@@ -77,6 +77,7 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileFourColor)}"
+            android:onClick="@{() -> gameViewModel.tileFourClicked()}"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/box_three_text"
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8" />
+            app:layout_constraintGuide_percent="0.9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

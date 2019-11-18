@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.R
-import timber.log.Timber
 
 
 private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
@@ -183,10 +182,32 @@ class GameViewModel : ViewModel() {
         nextWord()
     }
 
-    fun tileClicked() {
-        _tileOneColor.value = R.color.red
-        Timber.v("tile clicked")
-        // TODO : test here
+    fun tileOneClicked() {
+        _tileOneColor.value = updateTileColor(_tileOneColor)
+    }
+
+    fun tileTwoClicked() {
+        _tileTwoColor.value = updateTileColor(_tileTwoColor)
+    }
+
+    fun tileThreeClicked() {
+        _tileThreeColor.value = updateTileColor(_tileThreeColor)
+    }
+
+    fun tileFourClicked() {
+        _tileFourColor.value = updateTileColor(_tileFourColor)
+    }
+
+    fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
+        var newTileColor: Int = R.color.white_text_color
+        when (tileColor.value!!) {
+            R.color.green -> newTileColor = R.color.red
+            R.color.yellow -> newTileColor = R.color.red
+            R.color.blue -> newTileColor = R.color.red
+            R.color.red -> newTileColor = R.color.blue
+            else -> R.color.black_text_color
+        }
+        return newTileColor
     }
 
     /** Methods for completed events **/
