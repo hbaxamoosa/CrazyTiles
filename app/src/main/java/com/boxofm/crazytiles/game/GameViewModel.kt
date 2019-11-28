@@ -40,7 +40,7 @@ class GameViewModel : ViewModel() {
         private const val ONE_SECOND = 1000L
 
         // This is the total time of the game
-        private const val COUNTDOWN_TIME = 60000L
+        private const val COUNTDOWN_TIME = 10000L
 
     }
 
@@ -199,7 +199,7 @@ class GameViewModel : ViewModel() {
     }
 
     fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
-        var newTileColor: Int = R.color.white_text_color
+        var newTileColor: Int = tileColor.value!!
         when (tileColor.value!!) {
             R.color.green -> newTileColor = R.color.red
             R.color.yellow -> newTileColor = R.color.red
@@ -207,6 +207,7 @@ class GameViewModel : ViewModel() {
             R.color.red -> newTileColor = R.color.blue
             else -> R.color.black_text_color
         }
+        onCorrect()
         return newTileColor
     }
 

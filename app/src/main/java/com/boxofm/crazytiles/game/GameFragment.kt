@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGameBinding
 
@@ -37,8 +38,8 @@ class GameFragment : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                // val action = GameFragmentDirections.actionGameToScore(currentScore)
-                // findNavController().navigate(action)
+                val action = GameFragmentDirections.actionGameFragmentToScoreFragment(currentScore)
+                findNavController().navigate(action)
                 viewModel.onGameFinishComplete()
             }
         })

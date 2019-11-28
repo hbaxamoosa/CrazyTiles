@@ -84,18 +84,6 @@
             app:layout_constraintTop_toBottomOf="@id/box_two_text"
             tools:background="@color/red" />
 
-        <Button
-            android:id="@+id/green_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_wide"
-            android:fontFamily="@font/roboto"
-            android:text="@string/button_score"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineBottom" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLeft"
             android:layout_width="wrap_content"

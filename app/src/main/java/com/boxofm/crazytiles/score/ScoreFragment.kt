@@ -45,7 +45,7 @@ class ScoreFragment : Fragment() {
         // Navigates back to title when button is pressed
         viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
             if (playAgain) {
-                findNavController().navigate(ScoreFragmentDirections.actionRestart())
+                findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToGameFragment())
                 viewModel.onPlayAgainComplete()
             }
         })
