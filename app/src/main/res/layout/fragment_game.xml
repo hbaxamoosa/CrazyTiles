@@ -9,6 +9,8 @@
             name="gameViewModel"
             type="com.boxofm.crazytiles.game.GameViewModel" />
         <import type="androidx.core.content.ContextCompat" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

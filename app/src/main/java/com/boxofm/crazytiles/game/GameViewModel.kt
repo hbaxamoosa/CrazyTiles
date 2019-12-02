@@ -72,20 +72,10 @@ class GameViewModel : ViewModel() {
         DateUtils.formatElapsedTime(time)
     }
 
-    // The current word
-    private val _word = MutableLiveData<String>()
-    val word: LiveData<String>
-        get() = _word
-
-
     // The current score
     private val _score = MutableLiveData<Int>()
     val score: LiveData<Int>
         get() = _score
-
-
-    // The list of words - the front of the list is the next word to guess
-    private lateinit var wordList: MutableList<String>
 
     // Event which triggers the end of the game
     private val _eventGameFinish = MutableLiveData<Boolean>()
@@ -98,9 +88,8 @@ class GameViewModel : ViewModel() {
         get() = _eventBuzz
 
     init {
-        resetList()
-        nextWord()
         _score.value = 0
+        _eventGameFinish.value = false
 
         // set tile colors
         _tileOneColor.value = R.color.blue
@@ -128,87 +117,54 @@ class GameViewModel : ViewModel() {
         timer.start()
     }
 
-    /**
-     * Resets the list of words and randomizes the order
-     */
-    private fun resetList() {
-        wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
-        )
-        wordList.shuffle()
-    }
-
-    /**
-     * Moves to the next word in the list
-     */
-    private fun nextWord() {
-        //Select and remove a word from the list
-        if (wordList.isEmpty()) {
-            resetList()
-        }
-        _word.value = wordList.removeAt(0)
-    }
-
     /** Methods for buttons presses **/
-
-    fun onSkip() {
-        _score.value = (_score.value)?.minus(1)
-        nextWord()
-    }
-
-    fun onCorrect() {
-        _score.value = (_score.value)?.plus(1)
-        _eventBuzz.value = BuzzType.CORRECT
-        nextWord()
-    }
 
     fun tileOneClicked() {
         _tileOneColor.value = updateTileColor(_tileOneColor)
+        isGameOver()
     }
 
     fun tileTwoClicked() {
         _tileTwoColor.value = updateTileColor(_tileTwoColor)
+        isGameOver()
     }
 
     fun tileThreeClicked() {
         _tileThreeColor.value = updateTileColor(_tileThreeColor)
+        isGameOver()
     }
 
     fun tileFourClicked() {
         _tileFourColor.value = updateTileColor(_tileFourColor)
+        isGameOver()
     }
 
     fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
         var newTileColor: Int = tileColor.value!!
-        when (tileColor.value!!) {
-            R.color.green -> newTileColor = R.color.red
-            R.color.yellow -> newTileColor = R.color.red
-            R.color.blue -> newTileColor = R.color.red
-            R.color.red -> newTileColor = R.color.blue
-            else -> R.color.black_text_color
+        // Timber.v("%s %s", "value of eventGameFinished", eventGameFinish.value)
+        val randomInt = (0..3).random()
+        // Timber.v("%s %s", "value of randomInt is", randomInt)
+        // Timber.v("%s %s", "value of newTileColor is", newTileColor)
+        if (!eventGameFinish.value!!) {
+            when (randomInt) {
+                0 -> newTileColor = R.color.yellow
+                1 -> newTileColor = R.color.green
+                2 -> newTileColor = R.color.red
+                3 -> newTileColor = R.color.blue
+            }
         }
-        onCorrect()
+        _score.value = (_score.value)?.plus(1)
+        // Timber.v("%s %s", "value of newTileColor is", newTileColor)
         return newTileColor
+    }
+
+    private fun isGameOver() {
+        if (_tileOneColor.value == _tileTwoColor.value
+                && _tileTwoColor.value == _tileThreeColor.value
+                && _tileThreeColor.value == _tileFourColor.value) {
+            // Timber.v("%s %s", "All tiles are the same color", "GAME OVER")
+            _eventGameFinish.value = true
+        }
     }
 
     /** Methods for completed events **/
