@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.database.Games
 import com.boxofm.crazytiles.database.GamesDatabaseDao
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 /**
  * ViewModel for the final screen showing the score
@@ -48,6 +49,7 @@ class ScoreViewModel(finalScore: Int,
 
     init {
         _score.value = finalScore
+        Timber.v("%s %s", "_score.value is", finalScore)
         saveGame(finalScore)
         getGamesMostRecent()
     }
@@ -60,8 +62,10 @@ class ScoreViewModel(finalScore: Int,
             // IO is a thread pool for running operations that access the disk, such as
             // our Room database.
             withContext(Dispatchers.IO) {
-                val game = Games(totalGames = 1, wins = finalScore)
-                database.update(game)
+                // val game = Games(totalGames = 1, wins = finalScore)
+                val game = Games(wins = finalScore)
+                Timber.v("%s %s %s %s", "game is", game.gameCount, game.wins, game.level)
+                database.insert(game)
             }
         }
     }
@@ -81,7 +85,7 @@ class ScoreViewModel(finalScore: Int,
      */
     private suspend fun getGamesHistory(): Games? {
         return withContext(Dispatchers.IO) {
-            var game = database.getLatestGame()
+            val game = database.getLatestGame()
             game
         }
     }
