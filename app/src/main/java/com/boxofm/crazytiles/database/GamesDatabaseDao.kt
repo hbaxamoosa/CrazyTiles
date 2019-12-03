@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 
 /**
- * Defines methods for using the SleepNight class with Room.
+ * Defines methods for using the Games class with Room.
  */
 @Dao
 interface GamesDatabaseDao {

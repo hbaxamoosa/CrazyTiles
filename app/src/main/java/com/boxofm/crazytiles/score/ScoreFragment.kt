@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.boxofm.crazytiles.R
+import com.boxofm.crazytiles.database.GamesDatabase
 import com.boxofm.crazytiles.databinding.ScoreFragmentBinding
 
 class ScoreFragment : Fragment() {
@@ -32,8 +33,10 @@ class ScoreFragment : Fragment() {
         )
 
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
+        val application = requireNotNull(this.activity).application
+        val dataSource = GamesDatabase.getInstance(application).gamesDatabaseDao
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score)
+        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.scoreViewModel = viewModel
