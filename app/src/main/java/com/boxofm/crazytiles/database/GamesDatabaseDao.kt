@@ -1,6 +1,5 @@
 package com.boxofm.crazytiles.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -19,18 +18,18 @@ interface GamesDatabaseDao {
      * When updating a row with a value already set in a column,
      * replaces the old value with the new one.
      *
-     * @param night new value to write
+     * @param games new value to write
      */
     @Update
     fun update(games: Games)
 
     /**
-     * Selects and returns the row that matches the supplied start time, which is our key.
+     * Selects and returns the row that matches the supplied level, which is our key.
      *
-     * @param key startTimeMilli to match
+     * @param level difficulty of game played
      */
     @Query("SELECT * from games WHERE level = :level")
-    fun get(level: String): Games?
+    suspend fun get(level: String): Games?
 
     /**
      * Deletes all values from the table.
@@ -38,19 +37,19 @@ interface GamesDatabaseDao {
      * This does not delete the table, only its contents.
      */
     @Query("DELETE FROM games")
-    fun clear()
+    suspend fun clear()
 
     /**
      * Selects and returns all rows in the table,
      *
      * sorted by start time in descending order.
      */
-    @Query("SELECT * FROM games ORDER BY gameId DESC")
-    fun getAllGames(): LiveData<List<Games>>
+    @Query("SELECT * FROM games ORDER BY games_played DESC")
+    fun getAllGames(): List<Games>
 
     /**
      * Selects and returns the latest game.
      */
-    @Query("SELECT * FROM games ORDER BY gameId DESC LIMIT 1")
-    fun getLatestGame(): Games?
+    @Query("SELECT * FROM games ORDER BY games_played DESC LIMIT 1")
+    suspend fun getLatestGame(): Games?
 }

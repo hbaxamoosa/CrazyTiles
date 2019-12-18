@@ -17,6 +17,7 @@
     <string name="skip">Skip</string>
     <string name="play_again">Play Again</string>
     <string name="you_scored">You Scored</string>
+    <string name="historical_scores">Your Past Scores</string>
     <string name="title_text">guess the word!</string>
     <string name="play_button">Play</string>
     <string name="get_ready">Get ready to</string>

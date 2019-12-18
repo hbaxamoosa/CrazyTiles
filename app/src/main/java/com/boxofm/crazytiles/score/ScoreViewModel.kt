@@ -37,7 +37,9 @@ class ScoreViewModel(finalScore: Int,
 
     private val scoresHistory = MutableLiveData<Games?>()
 
-    private val gamesHistory = database.getAllGames()
+    private val _gamesHistory = MutableLiveData<List<Games>>()
+    val gamesHistory: LiveData<List<Games>>
+        get() = _gamesHistory
 
     private val _eventPlayAgain = MutableLiveData<Boolean>()
     val eventPlayAgain: LiveData<Boolean>
@@ -49,9 +51,15 @@ class ScoreViewModel(finalScore: Int,
 
     init {
         _score.value = finalScore
+
+        val tempList: MutableList<Games> = ArrayList<Games>()
+        tempList.add(Games(finalScore))
+        _gamesHistory.value = tempList
+
         Timber.v("%s %s", "_score.value is", finalScore)
         saveGame(finalScore)
         getGamesMostRecent()
+        getAllGamesPlayed()
     }
 
     /**
@@ -64,7 +72,7 @@ class ScoreViewModel(finalScore: Int,
             withContext(Dispatchers.IO) {
                 // val game = Games(totalGames = 1, wins = finalScore)
                 val game = Games(wins = finalScore)
-                Timber.v("%s %s %s %s", "game is", game.gameCount, game.wins, game.level)
+                Timber.v("%s %s %s %s", "saveGame is", game.gameCount, game.wins, game.level)
                 database.insert(game)
             }
         }
@@ -73,20 +81,32 @@ class ScoreViewModel(finalScore: Int,
     private fun getGamesMostRecent() {
         uiScope.launch {
             scoresHistory.value = getGamesHistory()
+            Timber.v("coroutine for getGamesMostRecent()")
+            _score.value = scoresHistory.value?.wins
         }
     }
 
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
     private suspend fun getGamesHistory(): Games? {
         return withContext(Dispatchers.IO) {
             val game = database.getLatestGame()
+            Timber.v("%s %s %s %s", "getGamesHistory is", game?.gameCount, game?.wins, game?.level)
             game
+        }
+    }
+
+    private fun getAllGamesPlayed() {
+        uiScope.launch {
+            _gamesHistory.value = getAllGames()
+            Timber.v("coroutine for getAllGames()")
+        }
+    }
+
+    private suspend fun getAllGames(): List<Games> {
+        return withContext(Dispatchers.IO) {
+            val games = database.getAllGames()
+            Timber.v("%s %s %s %s", "getAllGames is", games.get(0).gameCount, games.get(0).wins, games.get(0).level)
+            Timber.v("%s %s", "total number of games", games.count())
+            games
         }
     }
 
