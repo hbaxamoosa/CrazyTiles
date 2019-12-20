@@ -31,8 +31,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@+id/game_destination" />
+            app:popExitAnim="@anim/slide_out_left" />
         <argument
             android:name="score"
             android:defaultValue="0"

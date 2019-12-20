@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- foreground color names array -->
+    <string-array name="foreground_color_names_array">
+        <item>Aqua</item>
+        <!--item>#00FFFF</item-->
+
+        <item>Azure</item>
+        <!--item>#F0FFFF</item-->
+
+        <item>Beige</item>
+        <!--item>#F5F5DC</item-->
+
+        <item>Cornsilk</item>
+        <!--item>#FFF8DC</item-->
+
+        <item>Ivory</item>
+        <!--item>#FFFFF0</item-->
+    </string-array>
+
+    <!-- foreground color values array -->
+    <string-array name="foreground_color_values_array">
+        <!--item>Aqua</item-->
+        <item>#00FFFF</item>
+
+        <!--item>Azure</item-->
+        <item>#F0FFFF</item>
+
+        <!--item>Beige</item-->
+        <item>#F5F5DC</item>
+
+        <!--item>Cornsilk</item-->
+        <item>#FFF8DC</item>
+
+        <!--item>Ivory</item-->
+        <item>#FFFFF0</item>
+    </string-array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+</resources>

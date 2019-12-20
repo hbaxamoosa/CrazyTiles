@@ -1,12 +1,20 @@
 package com.boxofm.crazytiles
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
+import com.boxofm.crazytiles.ui.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import timber.log.Timber
+
 
 private lateinit var binding: ActivityMainBinding
 
@@ -20,6 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigation: BottomNavigationView = binding.navigationView
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        PreferenceManager.setDefaultValues(this,
+                R.xml.preferences, false)
+
+        val sharedPref: SharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this)
+        val switchPref: Boolean = sharedPref.getBoolean("checkbox_preference", false)
+
+        Timber.v("%s %s", "value of switchPref is ", switchPref)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -41,5 +58,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
