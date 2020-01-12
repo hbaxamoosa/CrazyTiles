@@ -10,17 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.boxofm.crazytiles.R
-import com.boxofm.crazytiles.databinding.FragmentGameBinding
+import com.boxofm.crazytiles.databinding.FragmentGame2x2Binding
 
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
-    private lateinit var binding: FragmentGameBinding
+    private lateinit var binding: FragmentGame2x2Binding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = DataBindingUtil.inflate<FragmentGameBinding>(
-                inflater, R.layout.fragment_game, container, false
+        val binding = DataBindingUtil.inflate<FragmentGame2x2Binding>(
+                inflater, R.layout.fragment_game_2x2, container, false
         )
 
         // Get the viewmodel

@@ -87,14 +87,14 @@
             tools:background="@color/red" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft"
+            android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
+            android:id="@+id/guidelineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

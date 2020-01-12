@@ -34,9 +34,12 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this)
-        val switchPref: Boolean = sharedPref.getBoolean("checkbox_preference", false)
 
-        Timber.v("%s %s", "value of switchPref is ", switchPref)
+        val checkboxPref: Boolean = sharedPref.getBoolean("checkbox_preference", false)
+        Timber.v("%s %s", "value of checkboxPref is ", checkboxPref)
+
+        val listPref: String? = sharedPref.getString("list_preference", "-1")
+        Timber.v("%s %s", "value of listPref is ", listPref)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

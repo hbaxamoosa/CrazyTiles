@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="@string/title_difficulty_section">
+        <ListPreference
+            android:defaultValue="@string/difficulty_easy"
+            android:dialogTitle="@string/difficulty_list_preference"
+            android:entries="@array/game_difficulty_names_array"
+            android:entryValues="@array/game_difficulty_values_array"
+            android:key="list_preference"
+            android:summary="@string/summary_gamedifficulty_preference"
+            android:title="@string/title_list_preference" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/title_first_section">
 
         <CheckBoxPreference
@@ -17,13 +28,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/title_second_section">
-
-        <ListPreference
-            android:dialogTitle="@string/dialog_title_list_preference"
-            android:entries="@array/foreground_color_names_array"
-            android:entryValues="@array/foreground_color_values_array"
-            android:key="list_preference"
-            android:title="@string/title_list_preference" />
 
         <Preference android:title="@string/title_intent_preference">
             <intent

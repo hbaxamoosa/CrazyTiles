@@ -9,7 +9,7 @@
         android:id="@+id/game_destination"
         android:name="com.boxofm.crazytiles.game.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game">
+        tools:layout="@layout/fragment_game_2x2">
         <action
             android:id="@+id/action_gameFragment_to_scoreFragment"
             app:destination="@id/score_destination"
