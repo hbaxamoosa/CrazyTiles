@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
+import com.boxofm.crazytiles.ui.InfoActivity
 import com.boxofm.crazytiles.ui.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import timber.log.Timber
-
 
 private lateinit var binding: ActivityMainBinding
 
@@ -74,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                true
+            }
+            R.id.action_info -> {
+                startActivity(Intent(this, InfoActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
