@@ -37,4 +37,13 @@
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+    <activity
+        android:id="@+id/infoActivity"
+        android:name="com.boxofm.crazytiles.ui.InfoActivity"
+        android:label="InfoActivity" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.boxofm.crazytiles.ui.SettingsActivity"
+        android:label="SettingsActivity" />
+
 </navigation>
