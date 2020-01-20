@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.boxofm.crazytiles.R
+import timber.log.Timber
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -27,6 +28,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
             val stringValue: String = key.toString()
             val selection: String = sharedPreferences?.getString(key, "unknown")!!
+            Timber.v("%s %s", "value of selection is ", selection)
 
             if (stringValue == "list_preference") {
                 val listPreference = findPreference<ListPreference>(key.toString())!!

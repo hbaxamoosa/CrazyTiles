@@ -1,5 +1,6 @@
 package com.boxofm.crazytiles.score
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.database.GamesDatabase
 import com.boxofm.crazytiles.databinding.ScoreFragmentBinding
@@ -35,8 +37,10 @@ class ScoreFragment : Fragment() {
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
         val application = requireNotNull(this.activity).application
         val dataSource = GamesDatabase.getInstance(application).gamesDatabaseDao
+        val sharesPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        val difficultyLevel: String = sharesPrefs.getString("list_preference", "unknown")!!
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, dataSource, application)
+        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, difficultyLevel, dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.scoreViewModel = viewModel

@@ -13,6 +13,7 @@ import timber.log.Timber
  * ViewModel for the final screen showing the score
  */
 class ScoreViewModel(finalScore: Int,
+                     difficultyLevel: String,
                      val database: GamesDatabaseDao,
                      application: Application) : ViewModel() {
 
@@ -56,8 +57,7 @@ class ScoreViewModel(finalScore: Int,
         tempList.add(Games(finalScore))
         _gamesHistory.value = tempList
 
-        Timber.v("%s %s", "_score.value is", finalScore)
-        saveGame(finalScore)
+        saveGame(finalScore, difficultyLevel)
         getGamesMostRecent()
         getAllGamesPlayed()
     }
@@ -65,13 +65,13 @@ class ScoreViewModel(finalScore: Int,
     /**
      * Sets the game score and updates the database.
      */
-    private fun saveGame(finalScore: Int) {
+    private fun saveGame(finalScore: Int, level: String) {
         uiScope.launch {
             // IO is a thread pool for running operations that access the disk, such as
             // our Room database.
             withContext(Dispatchers.IO) {
                 // val game = Games(totalGames = 1, wins = finalScore)
-                val game = Games(wins = finalScore)
+                val game = Games(wins = finalScore, level = level)
                 Timber.v("%s %s %s %s", "saveGame is", game.gameCount, game.wins, game.level)
                 database.insert(game)
             }

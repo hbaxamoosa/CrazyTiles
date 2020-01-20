@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
-import com.boxofm.crazytiles.ui.InfoActivity
+import com.boxofm.crazytiles.info.InfoActivity
 import com.boxofm.crazytiles.ui.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import timber.log.Timber
@@ -32,14 +32,8 @@ class MainActivity : AppCompatActivity() {
         PreferenceManager.setDefaultValues(this,
                 R.xml.preferences, false)
 
-        val sharedPref: SharedPreferences =
+        val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this)
-
-        val checkboxPref: Boolean = sharedPref.getBoolean("checkbox_preference", false)
-        Timber.v("%s %s", "value of checkboxPref is ", checkboxPref)
-
-        val listPref: String? = sharedPref.getString("list_preference", "-1")
-        Timber.v("%s %s", "value of listPref is ", listPref)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

@@ -39,7 +39,7 @@
     </fragment>
     <activity
         android:id="@+id/infoActivity"
-        android:name="com.boxofm.crazytiles.ui.InfoActivity"
+        android:name="com.boxofm.crazytiles.info.InfoActivity"
         android:label="InfoActivity" />
     <activity
         android:id="@+id/settingsActivity"

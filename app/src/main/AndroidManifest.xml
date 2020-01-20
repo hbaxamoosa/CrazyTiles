@@ -19,7 +19,7 @@
                 android:value="com.boxofm.crazytiles.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.InfoActivity"
+            android:name=".info.InfoActivity"
             android:label="@string/title_activity_info"
             android:parentActivityName=".MainActivity">
             <meta-data
