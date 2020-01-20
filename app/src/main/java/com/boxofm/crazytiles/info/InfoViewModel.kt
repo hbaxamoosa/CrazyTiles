@@ -58,16 +58,16 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
     val lossHard: LiveData<Int>
         get() = _lossHard
 
-    private val _percentageEasy = MutableLiveData<Int>()
-    val percentageEasy: LiveData<Int>
+    private val _percentageEasy = MutableLiveData<String>()
+    val percentageEasy: LiveData<String>
         get() = _percentageEasy
 
-    private val _percentageMedium = MutableLiveData<Int>()
-    val percentageMedium: LiveData<Int>
+    private val _percentageMedium = MutableLiveData<String>()
+    val percentageMedium: LiveData<String>
         get() = _percentageMedium
 
-    private val _percentageHard = MutableLiveData<Int>()
-    val percentageHard: LiveData<Int>
+    private val _percentageHard = MutableLiveData<String>()
+    val percentageHard: LiveData<String>
         get() = _percentageHard
 
     private val levelEasy = "Easy"
@@ -179,16 +179,17 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
         }
     }
 
-    private suspend fun getPercentageByLevel(level: String): Int {
+    private suspend fun getPercentageByLevel(level: String): String {
         return withContext(Dispatchers.IO) {
-            val total: Int = database.getTotalNumberOfGames()!!
-            val winCount: Int = database.getCountByLevel(level)!!
-            Timber.v("%s %s %s %s", "value of ", level, " is ", total)
-            Timber.v("%s %s %s %s", "value of ", level, " is ", winCount)
+            val total: Double = database.getTotalNumberOfGamesDouble()!!
+            val winCount: Double = database.getCountByLevelDouble(level)!!
+            Timber.v("%s %s %s %s", "value of ", level, " is total ", total)
+            Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)
             val format: NumberFormat = NumberFormat.getPercentInstance(Locale.US)
-            val percentage: String = format.format((total - winCount) % total)
-            Timber.v("%s %s %s %s", "value of ", level, " is ", percentage)
-            ((total - winCount) % total)
+            val percentage: String = format.format(winCount / total)
+            Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
+//            (winCount / total) * 100
+            percentage
         }
     }
 

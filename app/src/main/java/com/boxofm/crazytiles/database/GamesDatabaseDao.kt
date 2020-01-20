@@ -64,4 +64,16 @@ interface GamesDatabaseDao {
      */
     @Query("SELECT COUNT(games_played) from games")
     suspend fun getTotalNumberOfGames(): Int?
+
+    /**
+     * Counts the number of games by difficulty level.
+     */
+    @Query("SELECT COUNT(games_played) from games WHERE level = :level")
+    suspend fun getCountByLevelDouble(level: String): Double?
+
+    /**
+     * Counts the total number of games.
+     */
+    @Query("SELECT COUNT(games_played) from games")
+    suspend fun getTotalNumberOfGamesDouble(): Double?
 }
