@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import timber.log.Timber
 
@@ -21,8 +22,28 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
+
+            val sharedPref: SharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(this.context)
+
+            when (sharedPref.getString("list_preference", "unknown")) {
+                ("Easy") -> {
+                    val listPreference = findPreference<ListPreference>("list_preference")!!
+                    listPreference.summary = "Easy"
+                }
+                ("Medium") -> {
+                    val listPreference = findPreference<ListPreference>("list_preference")!!
+                    listPreference.summary = "Medium"
+                }
+                ("Hard") -> {
+                    val listPreference = findPreference<ListPreference>("list_preference")!!
+                    listPreference.summary = "Hard"
+                }
+                else -> Timber.v("%s %s", "game level is ", "unknown")
+            }
         }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
