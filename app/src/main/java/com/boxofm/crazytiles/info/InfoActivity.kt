@@ -35,10 +35,8 @@ class InfoActivity : AppCompatActivity() {
         viewModel.gameReset.observe(this, Observer { resetGame ->
             if (resetGame) {
                 Timber.v("%s %s", "game reset requested. Value of resetGame is ", resetGame)
-//                intent = Intent(this, InfoActivity::class.java)
-//                startActivity(intent)
+                viewModel.resetStatsComplete()
             }
-            viewModel.resetStatsComplete()
         })
     }
 }

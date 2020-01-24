@@ -196,7 +196,7 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             val format: NumberFormat = NumberFormat.getPercentInstance(Locale.US)
             val percentage: String
             if (total == 0.0) {
-                percentage = "0"
+                percentage = "0%"
             } else {
                 percentage = format.format(winCount / total)
                 Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
