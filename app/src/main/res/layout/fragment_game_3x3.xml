@@ -2,16 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.boxofm.crazytiles.game.GameFragment">
+    tools:context="com.boxofm.crazytiles.game.GameFragment3x3">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="com.boxofm.crazytiles.game.GameViewModel" />
-
         <import type="androidx.core.content.ContextCompat" />
-
         <import type="android.view.View" />
     </data>
 
@@ -38,13 +35,14 @@
             style="@style/whiteBox"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_weight="1"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileOneColor)}"
             android:onClick="@{() -> gameViewModel.tileOneClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/box_four_text"
             app:layout_constraintEnd_toStartOf="@+id/box_two_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/blue" />
 
         <TextView
@@ -58,6 +56,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_one_text"
             app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+            app:layout_constraintBottom_toTopOf="@+id/box_five_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/yellow" />
 
         <TextView
@@ -71,6 +71,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_two_text"
             app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+            app:layout_constraintBottom_toTopOf="@+id/box_six_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/green" />
 
         <TextView
@@ -85,6 +87,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/box_one_text"
+            app:layout_constraintBottom_toTopOf="@+id/box_seven_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/red" />
 
         <TextView
@@ -98,6 +102,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_four_text"
             app:layout_constraintTop_toBottomOf="@+id/box_two_text"
+            app:layout_constraintBottom_toTopOf="@+id/box_eight_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/blue" />
 
         <TextView
@@ -111,6 +117,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_five_text"
             app:layout_constraintTop_toBottomOf="@+id/box_three_text"
+            app:layout_constraintBottom_toTopOf="@+id/box_nine_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/yellow" />
 
         <TextView
@@ -121,10 +129,12 @@
             android:layout_weight="1"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileOneColor)}"
             android:onClick="@{() -> gameViewModel.tileOneClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/box_eight_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/box_four_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/green" />
 
         <TextView
@@ -134,10 +144,12 @@
             android:layout_height="100dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileTwoColor)}"
             android:onClick="@{() -> gameViewModel.tileTwoClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/box_nine_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_seven_text"
             app:layout_constraintTop_toBottomOf="@+id/box_five_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/yellow" />
 
         <TextView
@@ -147,10 +159,12 @@
             android:layout_height="100dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileThreeColor)}"
             android:onClick="@{() -> gameViewModel.tileThreeClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_eight_text"
             app:layout_constraintTop_toBottomOf="@+id/box_six_text"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/blue" />
 
         <androidx.constraintlayout.widget.Guideline

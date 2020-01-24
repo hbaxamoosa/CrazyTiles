@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.R
+import timber.log.Timber
 
 
 private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
@@ -17,7 +18,7 @@ private val NO_BUZZ_PATTERN = longArrayOf(0)
 /**
  * ViewModel containing all the logic needed to run the game
  */
-class GameViewModel : ViewModel() {
+class GameViewModel(difficultyLevel: String) : ViewModel() {
     // These are the three different types of buzzing in the game. Buzz pattern is the number of
     // milliseconds each interval of buzzing and non-buzzing takes.
     enum class BuzzType(val pattern: LongArray) {
@@ -61,6 +62,54 @@ class GameViewModel : ViewModel() {
     val tileFourColor: LiveData<Int>
         get() = _tileFourColor
 
+    private val _tileFiveColor = MutableLiveData<Int>()
+    val tileFiveColor: LiveData<Int>
+        get() = _tileFiveColor
+
+    private val _tileSixColor = MutableLiveData<Int>()
+    val tileSixColor: LiveData<Int>
+        get() = _tileSixColor
+
+    private val _tileSevenColor = MutableLiveData<Int>()
+    val tileSevenColor: LiveData<Int>
+        get() = _tileSevenColor
+
+    private val _tileEightColor = MutableLiveData<Int>()
+    val tileEightColor: LiveData<Int>
+        get() = _tileEightColor
+
+    private val _tileNineColor = MutableLiveData<Int>()
+    val tileNineColor: LiveData<Int>
+        get() = _tileNineColor
+
+    private val _tileTenColor = MutableLiveData<Int>()
+    val tileTenColor: LiveData<Int>
+        get() = _tileTenColor
+
+    private val _tileElevenColor = MutableLiveData<Int>()
+    val tileElevenColor: LiveData<Int>
+        get() = _tileElevenColor
+
+    private val _tileTwelveColor = MutableLiveData<Int>()
+    val tileTwelveColor: LiveData<Int>
+        get() = _tileTwelveColor
+
+    private val _tileThirteenColor = MutableLiveData<Int>()
+    val tileThirteenColor: LiveData<Int>
+        get() = _tileThirteenColor
+
+    private val _tileFourteenColor = MutableLiveData<Int>()
+    val tileFourteenColor: LiveData<Int>
+        get() = _tileFourteenColor
+
+    private val _tileFifteenColor = MutableLiveData<Int>()
+    val tileFifteenColor: LiveData<Int>
+        get() = _tileFifteenColor
+
+    private val _tileSixteenColor = MutableLiveData<Int>()
+    val tileSixteenColor: LiveData<Int>
+        get() = _tileSixteenColor
+
     private val timer: CountDownTimer
 
     private val _currentTime = MutableLiveData<Long>()
@@ -87,15 +136,27 @@ class GameViewModel : ViewModel() {
     val eventBuzz: LiveData<BuzzType>
         get() = _eventBuzz
 
+    private val level = difficultyLevel
+
     init {
+
+        Timber.v("%s %s", "value of game difficulty is ", difficultyLevel)
         _score.value = 0
         _eventGameFinish.value = false
 
         // set tile colors
-        _tileOneColor.value = R.color.blue
-        _tileTwoColor.value = R.color.yellow
-        _tileThreeColor.value = R.color.green
-        _tileFourColor.value = R.color.red
+        when (difficultyLevel) {
+            "Easy" -> {
+                setup2x2()
+            }
+            "Medium" -> {
+                setup3x3()
+            }
+            "Hard" -> {
+                setup4x4()
+            }
+            else -> Timber.v("value of BAD")
+        }
 
         // Creates a timer which triggers the end of the game when it finishes
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
@@ -117,26 +178,123 @@ class GameViewModel : ViewModel() {
         timer.start()
     }
 
-    /** Methods for buttons presses **/
+    fun setup2x2() {
+        _tileOneColor.value = R.color.blue
+        _tileTwoColor.value = R.color.yellow
+        _tileThreeColor.value = R.color.green
+        _tileFourColor.value = R.color.red
+    }
 
+    fun setup3x3() {
+        _tileOneColor.value = R.color.blue
+        _tileTwoColor.value = R.color.yellow
+        _tileThreeColor.value = R.color.green
+        _tileFourColor.value = R.color.red
+        _tileFiveColor.value = R.color.blue
+        _tileSixColor.value = R.color.yellow
+        _tileSevenColor.value = R.color.green
+        _tileEightColor.value = R.color.red
+        _tileNineColor.value = R.color.red
+    }
+
+    fun setup4x4() {
+        _tileOneColor.value = R.color.blue
+        _tileTwoColor.value = R.color.yellow
+        _tileThreeColor.value = R.color.green
+        _tileFourColor.value = R.color.red
+        _tileFiveColor.value = R.color.blue
+        _tileSixColor.value = R.color.yellow
+        _tileSevenColor.value = R.color.green
+        _tileEightColor.value = R.color.red
+        _tileNineColor.value = R.color.red
+        _tileTenColor.value = R.color.yellow
+        _tileElevenColor.value = R.color.green
+        _tileTwelveColor.value = R.color.red
+        _tileThirteenColor.value = R.color.red
+        _tileFourteenColor.value = R.color.green
+        _tileFifteenColor.value = R.color.red
+        _tileSixteenColor.value = R.color.red
+    }
+
+    /** Methods for buttons presses **/
     fun tileOneClicked() {
         _tileOneColor.value = updateTileColor(_tileOneColor)
-        isGameOver()
+        isGameOver(level)
     }
 
     fun tileTwoClicked() {
         _tileTwoColor.value = updateTileColor(_tileTwoColor)
-        isGameOver()
+        isGameOver(level)
     }
 
     fun tileThreeClicked() {
         _tileThreeColor.value = updateTileColor(_tileThreeColor)
-        isGameOver()
+        isGameOver(level)
     }
 
     fun tileFourClicked() {
         _tileFourColor.value = updateTileColor(_tileFourColor)
-        isGameOver()
+        isGameOver(level)
+    }
+
+    fun tileFiveClicked() {
+        _tileFiveColor.value = updateTileColor(_tileFiveColor)
+        isGameOver(level)
+    }
+
+    fun tileSixClicked() {
+        _tileSixColor.value = updateTileColor(_tileSixColor)
+        isGameOver(level)
+    }
+
+    fun tileSevenClicked() {
+        _tileSevenColor.value = updateTileColor(_tileSevenColor)
+        isGameOver(level)
+    }
+
+    fun tileEightClicked() {
+        _tileEightColor.value = updateTileColor(_tileEightColor)
+        isGameOver(level)
+    }
+
+    fun tileNineClicked() {
+        _tileNineColor.value = updateTileColor(_tileNineColor)
+        isGameOver(level)
+    }
+
+    fun tileTenClicked() {
+        _tileTenColor.value = updateTileColor(_tileTenColor)
+        isGameOver(level)
+    }
+
+    fun tileElevenClicked() {
+        _tileElevenColor.value = updateTileColor(_tileElevenColor)
+        isGameOver(level)
+    }
+
+    fun tileTwelveClicked() {
+        _tileTwelveColor.value = updateTileColor(_tileTwelveColor)
+        isGameOver(level)
+    }
+
+    fun tileThirteenClicked() {
+        _tileThirteenColor.value = updateTileColor(_tileThirteenColor)
+        isGameOver(level)
+    }
+
+    fun tileFourteenClicked() {
+        _tileFourteenColor.value = updateTileColor(_tileFourteenColor)
+        isGameOver(level)
+    }
+
+    fun tileFifteenClicked() {
+        _tileFifteenColor.value = updateTileColor(_tileFifteenColor)
+        isGameOver(level)
+    }
+
+    fun tileSixteenClicked() {
+        _tileSixteenColor.value = updateTileColor(_tileSixteenColor)
+        isGameOver(level)
     }
 
     fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
@@ -158,13 +316,47 @@ class GameViewModel : ViewModel() {
         return newTileColor
     }
 
-    private fun isGameOver() {
-        if (_tileOneColor.value == _tileTwoColor.value
-                && _tileTwoColor.value == _tileThreeColor.value
-                && _tileThreeColor.value == _tileFourColor.value) {
-            // Timber.v("%s %s", "All tiles are the same color", "GAME OVER")
-            _eventGameFinish.value = true
+    private fun isGameOver(level: String) {
+        Timber.v("%s %s", "value of level is", level)
+        when (level) {
+            "Easy" -> { // board is 2x2
+                if (_tileOneColor.value == _tileTwoColor.value
+                        && _tileTwoColor.value == _tileThreeColor.value
+                        && _tileThreeColor.value == _tileFourColor.value) {
+                    _eventGameFinish.value = true
+                }
+            }
+            "Medium" -> { // board is 3x3
+                if (_tileOneColor.value == _tileTwoColor.value
+                        && _tileTwoColor.value == _tileThreeColor.value
+                        && _tileThreeColor.value == _tileFourColor.value
+                        && _tileFourColor.value == _tileFiveColor.value
+                        && _tileFiveColor.value == _tileSixColor.value
+                        && _tileSixColor.value == _tileSevenColor.value
+                        && _tileSevenColor.value == _tileEightColor.value
+                        && _tileEightColor.value == _tileNineColor.value) {
+                    _eventGameFinish.value = true
+                }
+            }
+            "Hard" -> { // board is 4x4
+                if (_tileOneColor.value == _tileTwoColor.value
+                        && _tileTwoColor.value == _tileThreeColor.value
+                        && _tileThreeColor.value == _tileFourColor.value
+                        && _tileFourColor.value == _tileFiveColor.value
+                        && _tileFiveColor.value == _tileSixColor.value
+                        && _tileSixColor.value == _tileSevenColor.value
+                        && _tileSevenColor.value == _tileEightColor.value
+                        && _tileEightColor.value == _tileNineColor.value
+                        && _tileNineColor.value == _tileTenColor.value
+                        && _tileTenColor.value == _tileElevenColor.value
+                        && _tileElevenColor.value == _tileTwelveColor.value
+                        && _tileTwelveColor.value == _tileThirteenColor.value
+                        && _tileThirteenColor.value == _tileFourteenColor.value) {
+                    _eventGameFinish.value = true
+                }
+            }
         }
+
     }
 
     /** Methods for completed events **/

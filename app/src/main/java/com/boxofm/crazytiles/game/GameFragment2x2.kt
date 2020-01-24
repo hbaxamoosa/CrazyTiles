@@ -15,8 +15,9 @@ import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame2x2Binding
 import timber.log.Timber
 
-class GameFragment : Fragment() {
+class GameFragment2x2 : Fragment() {
 
+    private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: FragmentGame2x2Binding
 
@@ -26,21 +27,25 @@ class GameFragment : Fragment() {
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
         when (sharedPref.getString("list_preference", "unknown")) {
-            ("Easy") -> Timber.v("%s %s", "game level is ", "Easy")
+            ("Easy") -> {
+                Timber.v("%s %s", "game level is ", "Easy")
+            }
             ("Medium") -> {
                 Timber.v("%s %s", "game level is ", "Medium")
-                findNavController().navigate(R.id.infoActivity)
+                findNavController().navigate(R.id.gameFragment3x3_destination)
             }
-            ("Hard") -> Timber.v("%s %s", "game level is ", "Hard")
+            ("Hard") -> {
+                Timber.v("%s %s", "game level is ", "Hard")
+            }
             else -> Timber.v("%s %s", "game level is ", "unknown")
         }
 
-        val binding = DataBindingUtil.inflate<FragmentGame2x2Binding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_2x2, container, false
         )
 
-        // Get the viewmodel
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        viewModelFactory = GameViewModelFactory(sharedPref.getString("list_preference", "unknown")!!)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         // Set the viewmodel for databinding - this allows the bound layout access to all of the
         // data in the VieWModel
@@ -54,7 +59,7 @@ class GameFragment : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragmentDirections.actionGameFragmentToScoreFragment(currentScore)
+                val action = GameFragment2x2Directions.actionGameFragment2x2ToScoreFragment(currentScore)
                 findNavController().navigate(action)
                 viewModel.onGameFinishComplete()
             }
