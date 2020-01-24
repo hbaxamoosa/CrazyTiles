@@ -17,6 +17,34 @@
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 
+    <style name="scoreTableHeader">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="scoreTable">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="scoreTable.labels">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="howToPlay">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="instructions">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
     <!-- Button Styles -->
     <style name="GoButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/ok_green_color</item>

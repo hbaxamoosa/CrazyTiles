@@ -3,10 +3,12 @@ package com.boxofm.crazytiles.info
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.database.GamesDatabase
 import com.boxofm.crazytiles.databinding.ActivityInfoBinding
+import timber.log.Timber
 
 private lateinit var binding: ActivityInfoBinding
 
@@ -29,5 +31,14 @@ class InfoActivity : AppCompatActivity() {
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
+
+        viewModel.gameReset.observe(this, Observer { resetGame ->
+            if (resetGame) {
+                Timber.v("%s %s", "game reset requested. Value of resetGame is ", resetGame)
+//                intent = Intent(this, InfoActivity::class.java)
+//                startActivity(intent)
+            }
+            viewModel.resetStatsComplete()
+        })
     }
 }

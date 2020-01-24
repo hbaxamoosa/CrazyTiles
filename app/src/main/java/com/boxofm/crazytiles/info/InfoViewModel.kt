@@ -70,11 +70,19 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
     val percentageHard: LiveData<String>
         get() = _percentageHard
 
+    private val _gameReset = MutableLiveData<Boolean>()
+    val gameReset: LiveData<Boolean>
+        get() = _gameReset
+
     private val levelEasy = "Easy"
     private val levelMedium = "Medium"
     private val levelHard = "Hard"
 
     init {
+        populateScoreHistory()
+    }
+
+    private fun populateScoreHistory() {
         getTotalGames()
         getWinsByLevels(levelEasy)
         getWinsByLevels(levelMedium)
@@ -186,11 +194,36 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             Timber.v("%s %s %s %s", "value of ", level, " is total ", total)
             Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)
             val format: NumberFormat = NumberFormat.getPercentInstance(Locale.US)
-            val percentage: String = format.format(winCount / total)
-            Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
+            val percentage: String
+            if (total == 0.0) {
+                percentage = "0"
+            } else {
+                percentage = format.format(winCount / total)
+                Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
 //            (winCount / total) * 100
+            }
             percentage
         }
+    }
+
+    fun resetStats() {
+        uiScope.launch {
+            clearGamesDB()
+        }
+        _gameReset.value = true
+    }
+
+    private suspend fun clearGamesDB() {
+        withContext(Dispatchers.IO) {
+            database.clear()
+        }
+    }
+
+    fun resetStatsComplete() {
+        _gameReset.value = false
+        populateScoreHistory()
+        Timber.v("%s %s", "value of _gameReset.value is ", _gameReset.value)
+        Timber.v("%s %s", "value of populateScoreHistory", "")
     }
 
     /**
