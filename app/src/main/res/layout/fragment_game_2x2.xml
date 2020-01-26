@@ -40,9 +40,9 @@
             android:onClick="@{() -> gameViewModel.tileOneClicked()}"
             app:layout_constraintBottom_toTopOf="@id/box_three_text"
             app:layout_constraintEnd_toStartOf="@+id/box_two_text"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
             app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/blue" />
 
@@ -53,11 +53,11 @@
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileTwoColor)}"
             android:onClick="@{() -> gameViewModel.tileTwoClicked()}"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-            app:layout_constraintStart_toEndOf="@+id/box_one_text"
             app:layout_constraintBottom_toTopOf="@+id/box_four_text"
-            app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/box_one_text"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTop"
             app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/yellow" />
 
@@ -68,12 +68,12 @@
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileThreeColor)}"
             android:onClick="@{() -> gameViewModel.tileThreeClicked()}"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintBottom_toTopOf="@+id/button_play"
             app:layout_constraintEnd_toStartOf="@+id/box_four_text"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@id/box_one_text"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/green" />
 
@@ -84,13 +84,25 @@
             android:layout_height="160dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileFourColor)}"
             android:onClick="@{() -> gameViewModel.tileFourClicked()}"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintBottom_toTopOf="@+id/button_play"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_three_text"
             app:layout_constraintTop_toBottomOf="@+id/box_two_text"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/red" />
+
+        <Button
+            android:id="@+id/button_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Start Game"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/barrier" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRight"
@@ -121,6 +133,14 @@
             android:layout_marginTop="48dp"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="box_four_text,box_three_text"
+            tools:layout_editor_absoluteY="731dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
