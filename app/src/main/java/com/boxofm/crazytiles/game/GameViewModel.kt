@@ -28,6 +28,12 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
         NO_BUZZ(NO_BUZZ_PATTERN)
     }
 
+    enum class GameDifficultyLevel {
+        EASY,
+        MEDIUM,
+        HARD
+    }
+
     companion object {
         // These represent different important times in the game, such as game length.
 
@@ -136,7 +142,9 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
     val eventBuzz: LiveData<BuzzType>
         get() = _eventBuzz
 
+
     private val level = difficultyLevel
+    val gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
 
     init {
 
@@ -147,12 +155,15 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
         // set tile colors
         when (difficultyLevel) {
             "Easy" -> {
+                gameDifficultyLevel.value = GameDifficultyLevel.EASY
                 setup2x2()
             }
             "Medium" -> {
+                gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
                 setup3x3()
             }
             "Hard" -> {
+                gameDifficultyLevel.value = GameDifficultyLevel.HARD
                 setup4x4()
             }
             else -> Timber.v("value of BAD")
@@ -180,8 +191,8 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
 
     fun setup2x2() {
         _tileOneColor.value = R.color.blue
-        _tileTwoColor.value = R.color.yellow
-        _tileThreeColor.value = R.color.green
+        _tileTwoColor.value = R.color.blue
+        _tileThreeColor.value = R.color.blue
         _tileFourColor.value = R.color.red
     }
 
@@ -193,7 +204,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
         _tileFiveColor.value = R.color.blue
         _tileSixColor.value = R.color.yellow
         _tileSevenColor.value = R.color.green
-        _tileEightColor.value = R.color.red
+        _tileEightColor.value = R.color.blue
         _tileNineColor.value = R.color.red
     }
 
@@ -219,82 +230,82 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
     /** Methods for buttons presses **/
     fun tileOneClicked() {
         _tileOneColor.value = updateTileColor(_tileOneColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileTwoClicked() {
         _tileTwoColor.value = updateTileColor(_tileTwoColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileThreeClicked() {
         _tileThreeColor.value = updateTileColor(_tileThreeColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileFourClicked() {
         _tileFourColor.value = updateTileColor(_tileFourColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileFiveClicked() {
         _tileFiveColor.value = updateTileColor(_tileFiveColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileSixClicked() {
         _tileSixColor.value = updateTileColor(_tileSixColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileSevenClicked() {
         _tileSevenColor.value = updateTileColor(_tileSevenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileEightClicked() {
         _tileEightColor.value = updateTileColor(_tileEightColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileNineClicked() {
         _tileNineColor.value = updateTileColor(_tileNineColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileTenClicked() {
         _tileTenColor.value = updateTileColor(_tileTenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileElevenClicked() {
         _tileElevenColor.value = updateTileColor(_tileElevenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileTwelveClicked() {
         _tileTwelveColor.value = updateTileColor(_tileTwelveColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileThirteenClicked() {
         _tileThirteenColor.value = updateTileColor(_tileThirteenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileFourteenClicked() {
         _tileFourteenColor.value = updateTileColor(_tileFourteenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileFifteenClicked() {
         _tileFifteenColor.value = updateTileColor(_tileFifteenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun tileSixteenClicked() {
         _tileSixteenColor.value = updateTileColor(_tileSixteenColor)
-        isGameOver(level)
+        isGameOver(gameDifficultyLevel.value)
     }
 
     fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
@@ -316,17 +327,16 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
         return newTileColor
     }
 
-    private fun isGameOver(level: String) {
-        Timber.v("%s %s", "value of level is", level)
+    private fun isGameOver(level: GameDifficultyLevel?) {
         when (level) {
-            "Easy" -> { // board is 2x2
+            GameDifficultyLevel.EASY -> { // board is 2x2
                 if (_tileOneColor.value == _tileTwoColor.value
                         && _tileTwoColor.value == _tileThreeColor.value
                         && _tileThreeColor.value == _tileFourColor.value) {
                     _eventGameFinish.value = true
                 }
             }
-            "Medium" -> { // board is 3x3
+            GameDifficultyLevel.MEDIUM -> { // board is 3x3
                 if (_tileOneColor.value == _tileTwoColor.value
                         && _tileTwoColor.value == _tileThreeColor.value
                         && _tileThreeColor.value == _tileFourColor.value
@@ -338,7 +348,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
                     _eventGameFinish.value = true
                 }
             }
-            "Hard" -> { // board is 4x4
+            GameDifficultyLevel.HARD -> { // board is 4x4
                 if (_tileOneColor.value == _tileTwoColor.value
                         && _tileTwoColor.value == _tileThreeColor.value
                         && _tileThreeColor.value == _tileFourColor.value

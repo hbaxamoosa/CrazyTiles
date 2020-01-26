@@ -26,6 +26,7 @@ class GameFragment3x3 : Fragment() {
         val sharedPref: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
+/*
         when (sharedPref.getString("list_preference", "unknown")) {
             ("Easy") -> {
                 Timber.v("%s %s", "game level is ", "Easy")
@@ -39,6 +40,7 @@ class GameFragment3x3 : Fragment() {
             }
             else -> Timber.v("%s %s", "game level is ", "unknown")
         }
+*/
 
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_3x3, container, false
@@ -55,11 +57,29 @@ class GameFragment3x3 : Fragment() {
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
+        // Sets up an Observer to react to the game difficulty level selection
+        val navController = findNavController()
+        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer { level ->
+            when (level) {
+                GameViewModel.GameDifficultyLevel.EASY -> {
+                    Timber.v("%s %s", "value of level is ", level)
+                    navController.navigate(R.id.gameFragment2x2_destination)
+                }
+                GameViewModel.GameDifficultyLevel.MEDIUM -> {
+                    Timber.v("%s %s", "value of level is ", level)
+                }
+                GameViewModel.GameDifficultyLevel.HARD -> {
+                    Timber.v("%s %s", "value of level is ", level)
+                    navController.navigate(R.id.gameFragment4x4_destination)
+                }
+            }
+        })
+
         // Sets up event listening to navigate the player when the game is finished
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragment3x3Directions.actionGameFragment3x3ToScoreDestination(currentScore)
+                val action = GameFragment3x3Directions.actionGameFragment3x3ToScoreFragment(currentScore)
                 findNavController().navigate(action)
                 viewModel.onGameFinishComplete()
             }

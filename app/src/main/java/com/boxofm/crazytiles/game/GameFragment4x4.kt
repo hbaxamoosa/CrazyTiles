@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
-import com.boxofm.crazytiles.databinding.FragmentGame2x2Binding
+import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
 import timber.log.Timber
 
-class GameFragment2x2 : Fragment() {
+class GameFragment4x4 : Fragment() {
 
     private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var viewModel: GameViewModel
-    private lateinit var binding: FragmentGame2x2Binding
+    private lateinit var binding: FragmentGame4x4Binding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -27,13 +27,14 @@ class GameFragment2x2 : Fragment() {
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_2x2, container, false
+                inflater, R.layout.fragment_game_4x4, container, false
         )
 
         viewModelFactory = GameViewModelFactory(sharedPref.getString("list_preference", "unknown")!!)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
-        // Set the viewmodel for databinding - this allows the bound layout access to all the data in the VieWModel
+        // Set the viewmodel for databinding - this allows the bound layout access to all of the
+        // data in the VieWModel
         binding.gameViewModel = viewModel
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
@@ -46,7 +47,7 @@ class GameFragment2x2 : Fragment() {
             when (level) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
                     Timber.v("%s %s", "value of level is ", level)
-//                    navController.popBackStack()
+                    navController.navigate(R.id.gameFragment2x2_destination)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
                     Timber.v("%s %s", "value of level is ", level)
@@ -54,7 +55,6 @@ class GameFragment2x2 : Fragment() {
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
                     Timber.v("%s %s", "value of level is ", level)
-                    navController.navigate(R.id.gameFragment4x4_destination)
                 }
             }
         })
@@ -63,8 +63,8 @@ class GameFragment2x2 : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragment2x2Directions.actionGameFragment2x2ToScoreFragment(currentScore)
-                navController.navigate(action)
+                val action = GameFragment4x4Directions.actionGameFragment4x4ToScoreFragment(currentScore)
+                findNavController().navigate(action)
                 viewModel.onGameFinishComplete()
             }
         })
