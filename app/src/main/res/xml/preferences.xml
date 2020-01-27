@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/title_difficulty_section">
         <ListPreference
@@ -8,7 +9,7 @@
             android:entries="@array/game_difficulty_names_array"
             android:entryValues="@array/game_difficulty_values_array"
             android:key="list_preference"
-            android:summary="@string/summary_gamedifficulty_preference"
-            android:title="@string/title_list_preference" />
+            android:title="@string/title_list_preference"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </PreferenceScreen>
