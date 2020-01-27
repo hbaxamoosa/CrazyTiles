@@ -99,6 +99,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="Start Game"
+            android:onClick="@{() -> gameViewModel.startGame()}"
+            android:theme="@style/GoButton"
             app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"

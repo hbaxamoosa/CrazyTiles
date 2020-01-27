@@ -185,7 +185,9 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
                 _eventGameFinish.value = true
             }
         }
+    }
 
+    fun startGame() {
         timer.start()
     }
 

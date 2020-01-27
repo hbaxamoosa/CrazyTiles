@@ -281,6 +281,20 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:background="@color/blue" />
 
+        <Button
+            android:id="@+id/button_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> gameViewModel.startGame()}"
+            android:text="Start Game"
+            android:theme="@style/GoButton"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/barrier" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
@@ -310,6 +324,13 @@
             android:layout_marginTop="48dp"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="box_sixteen_text,box_thirteen_text,box_fifteen_text,box_fourteen_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
