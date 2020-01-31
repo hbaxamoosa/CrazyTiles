@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame3x3Binding
-import timber.log.Timber
 
 class GameFragment3x3 : Fragment() {
 
@@ -60,16 +59,14 @@ class GameFragment3x3 : Fragment() {
         // Sets up an Observer to react to the game difficulty level selection
         val navController = findNavController()
         viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer { level ->
+            /*Timber.v("%s %s", "value of level is ", level)*/
             when (level) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
-                    Timber.v("%s %s", "value of level is ", level)
                     navController.navigate(R.id.gameFragment2x2_destination)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
-                    Timber.v("%s %s", "value of level is ", level)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
-                    Timber.v("%s %s", "value of level is ", level)
                     navController.navigate(R.id.gameFragment4x4_destination)
                 }
             }
@@ -79,8 +76,11 @@ class GameFragment3x3 : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragment3x3Directions.actionGameFragment3x3ToScoreFragment(currentScore)
-                findNavController().navigate(action)
+                /*Timber.v("%s %s", "value of currentScore is ", currentScore)*/
+                val winner = viewModel.winner.value
+                /*Timber.v("%s %s", "value of winner is ", winner)*/
+                val action = GameFragment3x3Directions.actionGameFragment3x3ToScoreFragment(currentScore, winner!!)
+                navController.navigate(action)
                 viewModel.onGameFinishComplete()
             }
         })

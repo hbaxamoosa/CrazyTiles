@@ -54,26 +54,50 @@ interface GamesDatabaseDao {
     suspend fun getLatestGame(): Games?
 
     /**
-     * Counts the number of games by difficulty level.
+     * Counts the number of wins by difficulty level.
      */
-    @Query("SELECT COUNT(games_played) from games WHERE level = :level")
-    suspend fun getCountByLevel(level: String): Int?
+    @Query("SELECT COUNT(wins) from games WHERE level = :level AND wins = 1")
+    suspend fun getWinsByLevel(level: String): Int?
 
     /**
-     * Counts the total number of games.
+     * Counts the number of wins by difficulty level.
+     */
+    @Query("SELECT COUNT(games_played) from games WHERE level = :level AND wins = 1")
+    suspend fun getWinsByLevelDouble(level: String): Double?
+
+    /**
+     * Counts the number of loss by difficulty level.
+     */
+    @Query("SELECT COUNT(wins) from games WHERE level = :level AND wins = 0")
+    suspend fun getLossByLevel(level: String): Int?
+
+    /**
+     * Counts the number of loss by difficulty level.
+     */
+    @Query("SELECT COUNT(games_played) from games WHERE level = :level AND wins = 0")
+    suspend fun getLossByLevelDouble(level: String): Double?
+
+    /**
+     * Counts the total number of games by level.
+     */
+    @Query("SELECT COUNT(games_played) from games WHERE level = :level")
+    suspend fun getTotalNumberOfGames(level: String): Int?
+
+    /**
+     * Counts the total number of games as Int
      */
     @Query("SELECT COUNT(games_played) from games")
     suspend fun getTotalNumberOfGames(): Int?
 
     /**
-     * Counts the number of games by difficulty level.
-     */
-    @Query("SELECT COUNT(games_played) from games WHERE level = :level")
-    suspend fun getCountByLevelDouble(level: String): Double?
-
-    /**
-     * Counts the total number of games.
+     * Counts the total number of games as Double
      */
     @Query("SELECT COUNT(games_played) from games")
     suspend fun getTotalNumberOfGamesDouble(): Double?
+
+    /**
+     * Counts the total number of games be level as Double
+     */
+    @Query("SELECT COUNT(games_played) from games WHERE level = :level")
+    suspend fun getTotalNumberOfGamesDouble(level: String): Double?
 }

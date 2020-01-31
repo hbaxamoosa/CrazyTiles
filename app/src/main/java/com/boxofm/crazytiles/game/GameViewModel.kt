@@ -132,6 +132,11 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
     val score: LiveData<Int>
         get() = _score
 
+    // Current state of the game: Win = True, Loss = False
+    private val _winner = MutableLiveData<Boolean>()
+    val winner: LiveData<Boolean>
+        get() = _winner
+
     // Event which triggers the end of the game
     private val _eventGameFinish = MutableLiveData<Boolean>()
     val eventGameFinish: LiveData<Boolean>
@@ -150,6 +155,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
 
         Timber.v("%s %s", "value of game difficulty is ", difficultyLevel)
         _score.value = 0
+        _winner.value = false
         _eventGameFinish.value = false
 
         // set tile colors
@@ -335,6 +341,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
                 if (_tileOneColor.value == _tileTwoColor.value
                         && _tileTwoColor.value == _tileThreeColor.value
                         && _tileThreeColor.value == _tileFourColor.value) {
+                    _winner.value = true
                     _eventGameFinish.value = true
                 }
             }
@@ -347,6 +354,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
                         && _tileSixColor.value == _tileSevenColor.value
                         && _tileSevenColor.value == _tileEightColor.value
                         && _tileEightColor.value == _tileNineColor.value) {
+                    _winner.value = true
                     _eventGameFinish.value = true
                 }
             }
@@ -364,6 +372,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
                         && _tileElevenColor.value == _tileTwelveColor.value
                         && _tileTwelveColor.value == _tileThirteenColor.value
                         && _tileThirteenColor.value == _tileFourteenColor.value) {
+                    _winner.value = true
                     _eventGameFinish.value = true
                 }
             }
@@ -374,6 +383,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
     /** Methods for completed events **/
 
     fun onGameFinishComplete() {
+        _winner.value = false
         _eventGameFinish.value = false
     }
 

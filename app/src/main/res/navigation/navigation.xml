@@ -31,6 +31,10 @@
             android:name="score"
             android:defaultValue="0"
             app:argType="integer" />
+        <argument
+            android:name="winner"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment3x3_destination"

@@ -114,27 +114,27 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
         uiScope.launch {
             when (level) {
                 "Easy" -> {
-                    _winsEasy.value = getCountByLevel(level)
-//                    Timber.v("%s %s", "value of _winsEasy.value is ", _winsEasy.value)
+                    _winsEasy.value = getWinByLevel(level)
+                    /*Timber.v("%s %s", "value of _winsEasy.value is ", _winsEasy.value)*/
                 }
                 "Medium" -> {
-                    _winsMedium.value = getCountByLevel(level)
-//                    Timber.v("%s %s", "value of _winsMedium.value is ", _winsMedium.value)
+                    _winsMedium.value = getWinByLevel(level)
+                    /*Timber.v("%s %s", "value of _winsMedium.value is ", _winsMedium.value)*/
 
                 }
                 "Hard" -> {
-                    _winsHard.value = getCountByLevel(level)
-//                    Timber.v("%s %s", "value of _winsHard.value is ", _winsHard.value)
+                    _winsHard.value = getWinByLevel(level)
+                    /*Timber.v("%s %s", "value of _winsHard.value is ", _winsHard.value)*/
 
                 }
             }
         }
     }
 
-    private suspend fun getCountByLevel(level: String): Int {
+    private suspend fun getWinByLevel(level: String): Int {
         return withContext(Dispatchers.IO) {
-            val count: Int = database.getCountByLevel(level)!!
-//            Timber.v("%s %s %s %s", "value of ", level, " is ", count)
+            val count: Int = database.getWinsByLevel(level)!!
+            Timber.v("%s %s %s %s", "value of ", level, " is ", count)
             count
         }
     }
@@ -144,15 +144,15 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             when (level) {
                 "Easy" -> {
                     _lossEasy.value = getLossByLevel(levelEasy)
-//                    Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)
+                    /*Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)*/
                 }
                 "Medium" -> {
                     _lossMedium.value = getLossByLevel(levelMedium)
-//                    Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)
+                    /*Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)*/
                 }
                 "Hard" -> {
                     _lossHard.value = getLossByLevel(levelHard)
-//                    Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)
+                    /*Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)*/
                 }
             }
         }
@@ -160,11 +160,7 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
 
     private suspend fun getLossByLevel(level: String): Int {
         return withContext(Dispatchers.IO) {
-            val total: Int = database.getTotalNumberOfGames()!!
-            val winCount: Int = database.getCountByLevel(level)!!
-//            Timber.v("%s %s %s %s", "value of ", level, " is ", total)
-//            Timber.v("%s %s %s %s", "value of ", level, " is ", winCount)
-            total - winCount
+            database.getLossByLevel(level)!!
         }
     }
 
@@ -173,15 +169,15 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             when (level) {
                 "Easy" -> {
                     _percentageEasy.value = getPercentageByLevel(levelEasy)
-//                    Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)
+                    /*Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)*/
                 }
                 "Medium" -> {
                     _percentageMedium.value = getPercentageByLevel(levelMedium)
-//                    Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)
+                    /*Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)*/
                 }
                 "Hard" -> {
                     _percentageHard.value = getPercentageByLevel(levelHard)
-//                    Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)
+                    /*Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)*/
                 }
             }
         }
@@ -189,18 +185,17 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
 
     private suspend fun getPercentageByLevel(level: String): String {
         return withContext(Dispatchers.IO) {
-            val total: Double = database.getTotalNumberOfGamesDouble()!!
-            val winCount: Double = database.getCountByLevelDouble(level)!!
-            Timber.v("%s %s %s %s", "value of ", level, " is total ", total)
-            Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)
+            val total: Double = database.getTotalNumberOfGamesDouble(level)!!
+            val winCount: Double = database.getWinsByLevelDouble(level)!!
+            /*Timber.v("%s %s %s %s", "value of ", level, " is total ", total)*/
+            /*Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)*/
             val format: NumberFormat = NumberFormat.getPercentInstance(Locale.US)
             val percentage: String
             if (total == 0.0) {
                 percentage = "0%"
             } else {
                 percentage = format.format(winCount / total)
-                Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
-//            (winCount / total) * 100
+                /*Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)*/
             }
             percentage
         }
@@ -222,8 +217,6 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
     fun resetStatsComplete() {
         _gameReset.value = false
         populateScoreHistory()
-        Timber.v("%s %s", "value of _gameReset.value is ", _gameReset.value)
-        Timber.v("%s %s", "value of populateScoreHistory", "")
     }
 
     /**

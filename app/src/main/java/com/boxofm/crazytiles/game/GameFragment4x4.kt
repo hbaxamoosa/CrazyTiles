@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
-import timber.log.Timber
 
 class GameFragment4x4 : Fragment() {
 
@@ -44,17 +43,15 @@ class GameFragment4x4 : Fragment() {
         // Sets up an Observer to react to the game difficulty level selection
         val navController = findNavController()
         viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer { level ->
+            /*Timber.v("%s %s", "value of level is ", level)*/
             when (level) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
-                    Timber.v("%s %s", "value of level is ", level)
                     navController.navigate(R.id.gameFragment2x2_destination)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
-                    Timber.v("%s %s", "value of level is ", level)
                     navController.navigate(R.id.gameFragment3x3_destination)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
-                    Timber.v("%s %s", "value of level is ", level)
                 }
             }
         })
@@ -63,7 +60,10 @@ class GameFragment4x4 : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragment4x4Directions.actionGameFragment4x4ToScoreFragment(currentScore)
+                /*Timber.v("%s %s", "value of currentScore is ", currentScore)*/
+                val winner = viewModel.winner.value
+                /*Timber.v("%s %s", "value of winner is ", winner)*/
+                val action = GameFragment4x4Directions.actionGameFragment4x4ToScoreFragment(currentScore, winner!!)
                 findNavController().navigate(action)
                 viewModel.onGameFinishComplete()
             }

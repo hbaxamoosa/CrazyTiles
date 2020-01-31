@@ -40,7 +40,7 @@ class ScoreFragment : Fragment() {
         val sharesPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         val difficultyLevel: String = sharesPrefs.getString("list_preference", "unknown")!!
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, difficultyLevel, dataSource, application)
+        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, scoreFragmentArgs.winner, difficultyLevel, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.scoreViewModel = viewModel

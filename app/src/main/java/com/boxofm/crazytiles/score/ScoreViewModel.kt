@@ -1,21 +1,19 @@
 package com.boxofm.crazytiles.score
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.database.Games
 import com.boxofm.crazytiles.database.GamesDatabaseDao
 import kotlinx.coroutines.*
-import timber.log.Timber
 
 /**
  * ViewModel for the final screen showing the score
  */
 class ScoreViewModel(finalScore: Int,
+                     winner: Boolean,
                      difficultyLevel: String,
-                     val database: GamesDatabaseDao,
-                     application: Application) : ViewModel() {
+                     val database: GamesDatabaseDao) : ViewModel() {
 
     /** Coroutine setup variables */
 
@@ -50,63 +48,39 @@ class ScoreViewModel(finalScore: Int,
     val score: LiveData<Int>
         get() = _score
 
+    private val _winner = MutableLiveData<Boolean>()
+    val winner: LiveData<Boolean>
+        get() = _winner
+
     init {
         _score.value = finalScore
+        /*Timber.v("%s %s", "value of _score.value is ", _score.value)*/
+        _winner.value = winner
+        /*Timber.v("%s %s", "value of _winner.value is ", _winner.value)*/
 
-        val tempList: MutableList<Games> = ArrayList<Games>()
+        val tempList: MutableList<Games> = ArrayList()
         tempList.add(Games(finalScore))
         _gamesHistory.value = tempList
 
-        saveGame(finalScore, difficultyLevel)
-        getGamesMostRecent()
-        getAllGamesPlayed()
+        saveGame(winner, difficultyLevel)
     }
 
     /**
      * Sets the game score and updates the database.
      */
-    private fun saveGame(finalScore: Int, level: String) {
+    private fun saveGame(winner: Boolean, level: String) {
         uiScope.launch {
             // IO is a thread pool for running operations that access the disk, such as
             // our Room database.
             withContext(Dispatchers.IO) {
-                // val game = Games(totalGames = 1, wins = finalScore)
-                val game = Games(wins = finalScore, level = level)
-                Timber.v("%s %s %s %s", "saveGame is", game.gameCount, game.wins, game.level)
+                val thisScore: Int
+                if (winner) thisScore = 1 else thisScore = 0
+                /*Timber.v("%s %s", "value of winner is ", winner)*/
+                /*Timber.v("%s %s", "value of thisScore is ", thisScore)*/
+                val game = Games(wins = thisScore, level = level)
+                /*Timber.v("%s %s %s %s", "value of saveGame is", game.gameCount, game.wins, game.level)*/
                 database.insert(game)
             }
-        }
-    }
-
-    private fun getGamesMostRecent() {
-        uiScope.launch {
-            scoresHistory.value = getGamesHistory()
-            Timber.v("coroutine for getGamesMostRecent()")
-            _score.value = scoresHistory.value?.wins
-        }
-    }
-
-    private suspend fun getGamesHistory(): Games? {
-        return withContext(Dispatchers.IO) {
-            val game = database.getLatestGame()
-            Timber.v("%s %s %s %s", "getGamesHistory is", game?.gameCount, game?.wins, game?.level)
-            game
-        }
-    }
-
-    private fun getAllGamesPlayed() {
-        uiScope.launch {
-            _gamesHistory.value = getAllGames()
-            Timber.v("coroutine for getAllGames()")
-        }
-    }
-
-    private suspend fun getAllGames(): List<Games> {
-        return withContext(Dispatchers.IO) {
-            val games = database.getAllGames()
-            Timber.v("%s %s %s %s", "getAllGames is", games.get(0).gameCount, games.get(0).wins, games.get(0).level)
-            Timber.v("%s %s", "total number of games", games.count())
-            games
         }
     }
 
