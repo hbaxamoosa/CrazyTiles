@@ -1,29 +1,36 @@
 package com.boxofm.crazytiles.info
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.database.GamesDatabase
-import com.boxofm.crazytiles.databinding.ActivityInfoBinding
+import com.boxofm.crazytiles.databinding.FragmentInfoBinding
 import timber.log.Timber
 
-private lateinit var binding: ActivityInfoBinding
+class InfoFragment : Fragment() {
 
-class InfoActivity : AppCompatActivity() {
-
+    private lateinit var binding: FragmentInfoBinding
     private lateinit var viewModel: InfoViewModel
     private lateinit var viewModelFactory: InfoViewModelFactory
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_info)
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
 
-        val dataSource = GamesDatabase.getInstance(this).gamesDatabaseDao
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
+
+        val dataSource = GamesDatabase.getInstance(requireContext()).gamesDatabaseDao
         viewModelFactory = InfoViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(InfoViewModel::class.java)
+
 
         // Bind the activity to the ViewModel
         binding.infoViewModel = viewModel
@@ -38,5 +45,7 @@ class InfoActivity : AppCompatActivity() {
                 viewModel.resetStatsComplete()
             }
         })
+
+        return binding.root
     }
 }

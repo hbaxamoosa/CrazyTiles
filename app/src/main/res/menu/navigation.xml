@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_songs"
-        android:icon="@android:drawable/ic_secure"
-        android:title="Songs" />
+        android:id="@+id/gameFragment2x2_destination"
+        android:icon="@drawable/games_24px"
+        android:title="Game" />
 
     <item
-        android:id="@+id/navigation_albums"
-        android:icon="@android:drawable/ic_lock_power_off"
-        android:title="Albums" />
-
-    <item
-        android:id="@+id/navigation_artists"
-        android:icon="@android:drawable/star_big_off"
-        android:title="Artists" />
+        android:id="@+id/infoFragment"
+        android:icon="@drawable/info_24px"
+        android:title="Info" />
+    />
 </menu>
