@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 29
@@ -60,7 +62,16 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Stetho by Facebook
-    // implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
+    // Firebase Core + Analytics
+    implementation 'com.google.firebase:firebase-core:17.2.2'
+
+    // Firebase Remote Config
+    implementation 'com.google.firebase:firebase-config:19.1.1'
+
+    // Firebase Performance Monitoring library
+    implementation 'com.google.firebase:firebase-perf:19.0.5'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha03'

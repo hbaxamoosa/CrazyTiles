@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>difficulty_level_easy</key>
+        <value>2</value>
+    </entry>
+    <entry>
+        <key>difficulty_level_medium</key>
+        <value>4</value>
+    </entry>
+    <entry>
+        <key>difficulty_level_hard</key>
+        <value>6</value>
+    </entry>
+</defaultsMap>
