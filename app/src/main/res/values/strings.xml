@@ -80,4 +80,6 @@
     <string name="your_stats">Your Stats</string>
     <string name="action_info">Info</string>
     <string name="title_activity_info">Info</string>
+    <string name="bottom_nav_label_game">Game</string>
+    <string name="bottom_nav_label_info">Info</string>
 </resources>
