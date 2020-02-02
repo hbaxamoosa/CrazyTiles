@@ -13,39 +13,40 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame3x3Binding
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 
 class GameFragment3x3 : Fragment() {
 
     private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: FragmentGame3x3Binding
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val sharedPref: SharedPreferences =
+        var time: Long = 5000L
+        val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
-/*
-        when (sharedPref.getString("list_preference", "unknown")) {
-            ("Easy") -> {
-                Timber.v("%s %s", "game level is ", "Easy")
-                findNavController().navigate(R.id.gameFragment2x2_destination)
-            }
-            ("Medium") -> {
-                Timber.v("%s %s", "game level is ", "Medium")
-            }
-            ("Hard") -> {
-                Timber.v("%s %s", "game level is ", "Hard")
-            }
-            else -> Timber.v("%s %s", "game level is ", "unknown")
-        }
-*/
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
+
+        // Firebase Remote Config
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(Utils.getCacheExpiration())
+                .build()
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        time = Utils.fetchRemoteConfigValues(remoteConfig, sharedPrefs.getString("list_preference", "unknown")!!)
 
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_3x3, container, false
         )
 
-        viewModelFactory = GameViewModelFactory(sharedPref.getString("list_preference", "unknown")!!)
+        viewModelFactory = GameViewModelFactory(sharedPrefs.getString("list_preference", "unknown")!!, time)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         // Set the viewmodel for databinding - this allows the bound layout access to all of the
@@ -58,13 +59,17 @@ class GameFragment3x3 : Fragment() {
 
         // Sets up an Observer to react to the game difficulty level selection
         val navController = findNavController()
-        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer { level ->
+        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer {
             /*Timber.v("%s %s", "value of level is ", level)*/
-            when (level) {
+            when (it) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
                     navController.navigate(R.id.gameFragment2x2_destination)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
+                    // Firebase Analytics
+                    val bundle = Bundle()
+                    bundle.putString("level", sharedPrefs.getString("list_preference", "unknown")!!)
+                    firebaseAnalytics.logEvent("game_difficulty", bundle)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
                     navController.navigate(R.id.gameFragment4x4_destination)

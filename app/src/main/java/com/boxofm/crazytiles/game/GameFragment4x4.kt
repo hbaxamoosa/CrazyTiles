@@ -13,23 +13,40 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 
 class GameFragment4x4 : Fragment() {
 
     private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: FragmentGame4x4Binding
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val sharedPref: SharedPreferences =
+        var time: Long = 5000L
+        val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
+
+        // Firebase Remote Config
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(Utils.getCacheExpiration())
+                .build()
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        time = Utils.fetchRemoteConfigValues(remoteConfig, sharedPrefs.getString("list_preference", "unknown")!!)
 
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_4x4, container, false
         )
 
-        viewModelFactory = GameViewModelFactory(sharedPref.getString("list_preference", "unknown")!!)
+        viewModelFactory = GameViewModelFactory(sharedPrefs.getString("list_preference", "unknown")!!, time)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         // Set the viewmodel for databinding - this allows the bound layout access to all of the
@@ -42,9 +59,9 @@ class GameFragment4x4 : Fragment() {
 
         // Sets up an Observer to react to the game difficulty level selection
         val navController = findNavController()
-        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer { level ->
+        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer {
             /*Timber.v("%s %s", "value of level is ", level)*/
-            when (level) {
+            when (it) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
                     navController.navigate(R.id.gameFragment2x2_destination)
                 }
@@ -52,6 +69,10 @@ class GameFragment4x4 : Fragment() {
                     navController.navigate(R.id.gameFragment3x3_destination)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
+                    // Firebase Analytics
+                    val bundle = Bundle()
+                    bundle.putString("level", sharedPrefs.getString("list_preference", "unknown")!!)
+                    firebaseAnalytics.logEvent("game_difficulty", bundle)
                 }
             }
         })

@@ -18,7 +18,7 @@ private val NO_BUZZ_PATTERN = longArrayOf(0)
 /**
  * ViewModel containing all the logic needed to run the game
  */
-class GameViewModel(difficultyLevel: String) : ViewModel() {
+class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     // These are the three different types of buzzing in the game. Buzz pattern is the number of
     // milliseconds each interval of buzzing and non-buzzing takes.
     enum class BuzzType(val pattern: LongArray) {
@@ -48,7 +48,6 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
 
         // This is the total time of the game
         private const val COUNTDOWN_TIME = 5000L
-
     }
 
     // Set TextView background color for each tile
@@ -152,8 +151,6 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
     val gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
 
     init {
-
-        Timber.v("%s %s", "value of game difficulty is ", difficultyLevel)
         _score.value = 0
         _winner.value = false
         _eventGameFinish.value = false
@@ -177,7 +174,7 @@ class GameViewModel(difficultyLevel: String) : ViewModel() {
         }
 
         // Creates a timer which triggers the end of the game when it finishes
-        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+        timer = object : CountDownTimer(time /*COUNTDOWN_TIME*/, ONE_SECOND) {
 
             override fun onTick(millisUntilFinished: Long) {
                 _currentTime.value = (millisUntilFinished / ONE_SECOND)
