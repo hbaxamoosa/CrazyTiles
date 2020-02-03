@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_gameFragment2x2_to_scoreFragment"
             app:destination="@id/score_destination" />
+        <action
+            android:id="@+id/action_gameFragment2x2_to_gameFragment3x3"
+            app:destination="@id/gameFragment3x3_destination" />
+        <action
+            android:id="@+id/action_gameFragment2x2_to_gameFragment4x4"
+            app:destination="@id/gameFragment4x4_destination" />
     </fragment>
     <fragment
         android:id="@+id/score_destination"
@@ -39,6 +45,12 @@
         <action
             android:id="@+id/action_gameFragment3x3_to_scoreFragment"
             app:destination="@id/score_destination" />
+        <action
+            android:id="@+id/action_gameFragment3x3_to_gameFragment2x2"
+            app:destination="@id/gameFragment2x2_destination" />
+        <action
+            android:id="@+id/action_gameFragment3x3_to_gameFragment4x4"
+            app:destination="@id/gameFragment4x4_destination" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment4x4_destination"
@@ -48,6 +60,12 @@
         <action
             android:id="@+id/action_gameFragment4x4_to_scoreFragment"
             app:destination="@id/score_destination" />
+        <action
+            android:id="@+id/action_gameFragment4x4_to_gameFragment2x2"
+            app:destination="@id/gameFragment2x2_destination" />
+        <action
+            android:id="@+id/action_gameFragment4x4_to_gameFragment3x3"
+            app:destination="@id/gameFragment3x3_destination" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
@@ -57,5 +75,6 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.boxofm.crazytiles.info.InfoFragment"
-        android:label="InfoFragment" />
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info" />
 </navigation>

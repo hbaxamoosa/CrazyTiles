@@ -30,16 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         // Set up Action Bar
         val navController = host.navController
-
         setupBottomNavMenu(navController)
 
         PreferenceManager.setDefaultValues(this,
                 R.xml.preferences, false)
 
-/*
-        val sharedPrefs: SharedPreferences =
+        /*val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this)
-*/
+
+        Timber.v("%s %s", "value of difficulty_level is ", sharedPrefs.getString("list_preference", "unknown")!!)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

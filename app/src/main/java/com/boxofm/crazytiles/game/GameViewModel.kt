@@ -35,19 +35,11 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     }
 
     companion object {
-        // These represent different important times in the game, such as game length.
-
         // This is when the game is over
         private const val DONE = 0L
 
-        // This is the time when the phone will start buzzing each second
-        private const val COUNTDOWN_PANIC_SECONDS = 10L
-
         // This is the number of milliseconds in a second
         private const val ONE_SECOND = 1000L
-
-        // This is the total time of the game
-        private const val COUNTDOWN_TIME = 5000L
     }
 
     // Set TextView background color for each tile
@@ -178,14 +170,10 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
 
             override fun onTick(millisUntilFinished: Long) {
                 _currentTime.value = (millisUntilFinished / ONE_SECOND)
-                if (millisUntilFinished / ONE_SECOND <= COUNTDOWN_PANIC_SECONDS) {
-                    _eventBuzz.value = BuzzType.COUNTDOWN_PANIC
-                }
             }
 
             override fun onFinish() {
                 _currentTime.value = DONE
-                _eventBuzz.value = BuzzType.GAME_OVER
                 _eventGameFinish.value = true
             }
         }
@@ -197,8 +185,8 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     }
 
     fun setup2x2() {
-        _tileOneColor.value = R.color.blue
-        _tileTwoColor.value = R.color.blue
+        _tileOneColor.value = R.color.yellow
+        _tileTwoColor.value = R.color.green
         _tileThreeColor.value = R.color.blue
         _tileFourColor.value = R.color.red
     }
@@ -211,26 +199,26 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         _tileFiveColor.value = R.color.blue
         _tileSixColor.value = R.color.yellow
         _tileSevenColor.value = R.color.green
-        _tileEightColor.value = R.color.blue
-        _tileNineColor.value = R.color.red
+        _tileEightColor.value = R.color.red
+        _tileNineColor.value = R.color.yellow
     }
 
     fun setup4x4() {
-        _tileOneColor.value = R.color.blue
-        _tileTwoColor.value = R.color.yellow
-        _tileThreeColor.value = R.color.green
-        _tileFourColor.value = R.color.red
+        _tileOneColor.value = R.color.red
+        _tileTwoColor.value = R.color.green
+        _tileThreeColor.value = R.color.blue
+        _tileFourColor.value = R.color.yellow
         _tileFiveColor.value = R.color.blue
         _tileSixColor.value = R.color.yellow
         _tileSevenColor.value = R.color.green
         _tileEightColor.value = R.color.red
-        _tileNineColor.value = R.color.red
-        _tileTenColor.value = R.color.yellow
-        _tileElevenColor.value = R.color.green
-        _tileTwelveColor.value = R.color.red
-        _tileThirteenColor.value = R.color.red
+        _tileNineColor.value = R.color.green
+        _tileTenColor.value = R.color.red
+        _tileElevenColor.value = R.color.yellow
+        _tileTwelveColor.value = R.color.blue
+        _tileThirteenColor.value = R.color.yellow
         _tileFourteenColor.value = R.color.green
-        _tileFifteenColor.value = R.color.red
+        _tileFifteenColor.value = R.color.blue
         _tileSixteenColor.value = R.color.red
     }
 
@@ -418,10 +406,6 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     fun onGameFinishComplete() {
         _winner.value = false
         _eventGameFinish.value = false
-    }
-
-    fun onBuzzComplete() {
-        _eventBuzz.value = BuzzType.NO_BUZZ
     }
 
     override fun onCleared() {

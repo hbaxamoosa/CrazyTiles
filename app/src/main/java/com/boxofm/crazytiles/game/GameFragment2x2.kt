@@ -16,6 +16,7 @@ import com.boxofm.crazytiles.databinding.FragmentGame2x2Binding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import timber.log.Timber
 
 class GameFragment2x2 : Fragment() {
 
@@ -28,7 +29,7 @@ class GameFragment2x2 : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var time: Long = 5000L
+        val time: Long
         val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
@@ -68,10 +69,13 @@ class GameFragment2x2 : Fragment() {
                     firebaseAnalytics.logEvent("game_difficulty", bundle)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
-                    navController.navigate(R.id.gameFragment3x3_destination)
+                    navController.navigate(R.id.action_gameFragment2x2_to_gameFragment3x3)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
-                    navController.navigate(R.id.gameFragment4x4_destination)
+                    navController.navigate(R.id.action_gameFragment2x2_to_gameFragment4x4)
+                }
+                else -> {
+                    Timber.v("%s %s", "something BAD is ", "happening")
                 }
             }
         })

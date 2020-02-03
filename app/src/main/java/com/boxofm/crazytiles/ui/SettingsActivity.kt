@@ -1,8 +1,11 @@
 package com.boxofm.crazytiles.ui
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import com.boxofm.crazytiles.MainActivity
 import com.boxofm.crazytiles.R
 
 class SettingsActivity : AppCompatActivity() {
@@ -14,7 +17,11 @@ class SettingsActivity : AppCompatActivity() {
                 .beginTransaction()
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        onBackPressedDispatcher.addCallback {
+            startActivity(Intent(this@SettingsActivity, MainActivity::class.java))
+        }
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {

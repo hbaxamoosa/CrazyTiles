@@ -16,6 +16,7 @@ import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import timber.log.Timber
 
 class GameFragment4x4 : Fragment() {
 
@@ -27,7 +28,7 @@ class GameFragment4x4 : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var time: Long = 5000L
+        val time: Long
         val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
@@ -63,16 +64,19 @@ class GameFragment4x4 : Fragment() {
             /*Timber.v("%s %s", "value of level is ", level)*/
             when (it) {
                 GameViewModel.GameDifficultyLevel.EASY -> {
-                    navController.navigate(R.id.gameFragment2x2_destination)
+                    navController.navigate(R.id.action_gameFragment4x4_to_gameFragment2x2)
                 }
                 GameViewModel.GameDifficultyLevel.MEDIUM -> {
-                    navController.navigate(R.id.gameFragment3x3_destination)
+                    navController.navigate(R.id.action_gameFragment4x4_to_gameFragment3x3)
                 }
                 GameViewModel.GameDifficultyLevel.HARD -> {
                     // Firebase Analytics
                     val bundle = Bundle()
                     bundle.putString("level", sharedPrefs.getString("list_preference", "unknown")!!)
                     firebaseAnalytics.logEvent("game_difficulty", bundle)
+                }
+                else -> {
+                    Timber.v("%s %s", "something BAD is ", "happening")
                 }
             }
         })

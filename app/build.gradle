@@ -59,9 +59,6 @@ dependencies {
     // Jake Wharton's Timber logging library https://github.com/JakeWharton/timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // Stetho by Facebook
-    implementation 'com.facebook.stetho:stetho:1.5.1'
-
     // Firebase Core
     implementation 'com.google.firebase:firebase-core:17.2.2'
 
