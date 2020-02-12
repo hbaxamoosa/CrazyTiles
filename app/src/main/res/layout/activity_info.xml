@@ -19,8 +19,11 @@
             android:id="@+id/title_your_stats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="48dp"
             android:text="@string/your_stats"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/table_column_category_row0"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,13 +35,14 @@
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row0"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/divider_row0"
             app:layout_constraintTop_toBottomOf="@+id/title_your_stats" />
 
         <TextView
             android:id="@+id/table_column_easy_row0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Easy"
+            android:text="@string/label_easy"
             style="@style/scoreTable.labels"
             app:layout_constraintEnd_toStartOf="@+id/table_column_medium_row0"
             app:layout_constraintHorizontal_weight="1"
@@ -49,7 +53,7 @@
             android:id="@+id/table_column_medium_row0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Medium"
+            android:text="@string/label_medium"
             style="@style/scoreTable.labels"
             app:layout_constraintEnd_toStartOf="@+id/table_column_hard_row0"
             app:layout_constraintHorizontal_weight="1"
@@ -60,7 +64,7 @@
             android:id="@+id/table_column_hard_row0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hard"
+            android:text="@string/label_hard"
             style="@style/scoreTable.labels"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
@@ -70,20 +74,22 @@
         <View
             android:id="@+id/divider_row0"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="3dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/table_column_category_row0" />
+            app:layout_constraintBottom_toTopOf="@+id/table_column_category_row0"
+            app:layout_constraintTop_toTopOf="@+id/table_column_category_row1" />
 
         <TextView
             android:id="@+id/table_column_category_row1"
+            style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Games won"
-            style="@style/scoreTable.labels"
+            android:text="@string/games_won"
+            app:layout_constraintBottom_toTopOf="@+id/divider_row1"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row1"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/table_column_category_row0" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_row0" />
 
         <TextView
             android:id="@+id/table_column_easy_row1"
@@ -124,19 +130,21 @@
         <View
             android:id="@+id/divider_row1"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="3dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintTop_toBottomOf="@+id/table_column_category_row1" />
 
         <TextView
             android:id="@+id/table_column_category_row2"
+            style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Games lost"
-            style="@style/scoreTable.labels"
+            android:layout_marginTop="8dp"
+            android:text="@string/games_lost"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row2"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/divider_row2"
             app:layout_constraintTop_toBottomOf="@+id/table_column_category_row1" />
 
         <TextView
@@ -178,19 +186,21 @@
         <View
             android:id="@+id/divider_row2"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="3dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintTop_toBottomOf="@+id/table_column_category_row2" />
 
         <TextView
             android:id="@+id/table_column_category_row3"
+            style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Win percentage"
-            style="@style/scoreTable.labels"
+            android:layout_marginTop="8dp"
+            android:text="@string/win_percentage"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row3"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/divider_row3"
             app:layout_constraintTop_toBottomOf="@+id/table_column_category_row2" />
 
         <TextView
@@ -242,7 +252,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:onClick="@{() -> infoViewModel.resetStats()}"
-            android:text="Reset Stats"
+            android:text="@string/reset_stats"
             android:theme="@style/GoButton"
             android:padding="24dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +266,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="How to play"
+            android:text="@string/how_to_play"
             app:layout_constraintBottom_toTopOf="@+id/instructions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -270,7 +280,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Flood the whole board with one color before time expires"
+            android:text="@string/instructions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_how_to_play" />

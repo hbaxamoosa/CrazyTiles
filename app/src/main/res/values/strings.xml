@@ -6,44 +6,9 @@
     <string name="box_three">Box Three</string>
     <string name="box_four">Box Four</string>
     <string name="box_five">Box Five</string>
-    <string name="how_to_play">This is a game:</string>
-    <string name="tap_the_boxes_and_buttons">Tap the screen and buttons.</string>
+    <string name="how_to_play">How to play</string>
 
-    <string name="button_score">Score</string>
-    <string name="button_red">RED</string>
-    <string name="button_yellow">YELLOW</string>
-    <string name="button_green">GREEN</string>
-
-    <string name="skip">Skip</string>
-    <string name="play_again">Play Again</string>
-    <string name="you_scored">You had</string>
-    <string name="historical_scores">Your Past Scores</string>
-    <string name="title_text">guess the word!</string>
-    <string name="play_button">Play</string>
-    <string name="get_ready">Get ready to</string>
-    <string name="got_it">Got it</string>
-    <string name="word_is">The word is…</string>
-    <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
-
-    <string name="game_over">Game Over</string>
-    <string name="try_again">Try Again?</string>
-    <string name="position">Position</string>
-    <string name="select_an_avatar">Select an Avatar</string>
-    <string name="android_trivia">Android Trivia</string>
-    <string name="about_text">Android Trivia will help remind you of important concepts you have learned and will learn in Android development.\n\nConsider modifying the questions and graphics to make this game your own!</string>
-    <string name="rules_text">Select the answer from the options given. Each time you get an answer correct, you advance to the next question.\n\nIf you get the answer wrong, your game ends! You can return to the title screen using up or back from within the game screen, and this will also end your game.</string>
-    <string name="info">Info</string>
-    <string name="about">About</string>
-    <string name="trivia_hint">Trivia Hint</string>
-    <string name="title_android_trivia_question">Android Trivia (%1$d/%2$d)</string>
-    <string name="title_about_trivia">About Trivia</string>
-    <string name="title_trivia_rules">Trivia Rules</string>
-    <string name="share_success_text">I mastered #UdacityAndroidTrivia with %1$d/%2$d correct questions!</string>
-    <string name="submit_button">Submit</string>
-    <string name="congratulations">Congratulations!</string>
-    <string name="share">Share</string>
-    <string name="sharing_not_available">Sharing Not Available</string>
 
     <string name="title_difficulty_section">Game Difficulty</string>
     <string name="difficulty_easy">Easy</string>
@@ -65,21 +30,19 @@
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="action_settings">Settings</string>
     <string name="summary_gamedifficulty_preference">Easy</string>
     <string name="your_stats">Your Stats</string>
     <string name="action_info">Info</string>
     <string name="title_activity_info">Info</string>
     <string name="bottom_nav_label_game">Game</string>
     <string name="bottom_nav_label_info">Info</string>
+    <string name="label_easy">Easy</string>
+    <string name="label_medium">Medium</string>
+    <string name="label_hard">Hard</string>
+    <string name="games_won">Games won</string>
+    <string name="games_lost">Games lost</string>
+    <string name="win_percentage">Win percentage</string>
+    <string name="reset_stats">Reset Stats</string>
+    <string name="instructions">Flood the whole board with one color before time expires</string>
 </resources>

@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_game_2x2">
         <action
             android:id="@+id/action_gameFragment2x2_to_scoreFragment"
-            app:destination="@id/score_destination" />
+            app:destination="@id/score_destination"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/gameFragment2x2_destination" />
         <action
             android:id="@+id/action_gameFragment2x2_to_gameFragment3x3"
             app:destination="@id/gameFragment3x3_destination" />
