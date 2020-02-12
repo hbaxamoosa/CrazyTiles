@@ -199,8 +199,8 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         _tileFiveColor.value = R.color.blue
         _tileSixColor.value = R.color.yellow
         _tileSevenColor.value = R.color.green
-        _tileEightColor.value = R.color.red
-        _tileNineColor.value = R.color.yellow
+        _tileEightColor.value = R.color.yellow
+        _tileNineColor.value = R.color.red
     }
 
     fun setup4x4() {
