@@ -7,8 +7,8 @@
     <string name="box_four">Box Four</string>
     <string name="box_five">Box Five</string>
     <string name="how_to_play">How to play</string>
-
-    <string name="score_format">Current Score: %d</string>
+    <string name="you_scored">You had</string>
+    <string name="play_again">Play Again</string>
 
     <string name="title_difficulty_section">Game Difficulty</string>
     <string name="difficulty_easy">Easy</string>
@@ -45,4 +45,5 @@
     <string name="win_percentage">Win percentage</string>
     <string name="reset_stats">Reset Stats</string>
     <string name="instructions">Flood the whole board with one color before time expires</string>
+    <string name="action_settings">Settings</string>
 </resources>
