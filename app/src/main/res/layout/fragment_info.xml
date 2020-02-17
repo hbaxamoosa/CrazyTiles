@@ -5,7 +5,6 @@
     tools:context="com.boxofm.crazytiles.info.InfoFragment">
 
     <data>
-
         <variable
             name="infoViewModel"
             type="com.boxofm.crazytiles.info.InfoViewModel" />
@@ -22,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/your_stats"
+            android:layout_marginBottom="16dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/table_column_category_row0"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -41,7 +42,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Easy"
+            android:text="@string/column_easy"
             app:layout_constraintEnd_toStartOf="@+id/table_column_medium_row0"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/table_column_category_row0"
@@ -52,7 +53,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Medium"
+            android:text="@string/column_medium"
             app:layout_constraintEnd_toStartOf="@+id/table_column_hard_row0"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/table_column_easy_row0"
@@ -63,7 +64,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hard"
+            android:text="@string/column_hard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/table_column_medium_row0"
@@ -81,7 +82,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Games won"
+            android:text="@string/row_games_won"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row1"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +136,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Games lost"
+            android:text="@string/row_games_lost"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row2"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +190,7 @@
             style="@style/scoreTable.labels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Win percentage"
+            android:text="@string/row_win_percentage"
             app:layout_constraintEnd_toStartOf="@+id/table_column_easy_row3"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
@@ -245,7 +246,7 @@
             android:layout_marginTop="24dp"
             android:onClick="@{() -> infoViewModel.resetStats()}"
             android:padding="24dp"
-            android:text="Reset Stats"
+            android:text="@string/button_reset_stats"
             android:theme="@style/GoButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -258,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="How to play"
+            android:text="@string/header_how_to_play"
             app:layout_constraintBottom_toTopOf="@+id/instructions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -272,7 +273,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Flood the whole board with one color before time expires"
+            android:text="@string/instructions_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_how_to_play" />
