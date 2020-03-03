@@ -32,7 +32,7 @@ class GameFragment3x3 : Fragment() {
         val sharedPrefs: SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(activity)
 
-        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
         // Firebase Remote Config
         remoteConfig = FirebaseRemoteConfig.getInstance()
@@ -93,6 +93,21 @@ class GameFragment3x3 : Fragment() {
                 viewModel.onGameFinishComplete()
             }
         })
+
+        // Hides the 'Start Game' button after the game has started
+        viewModel.gameStarted.observe(viewLifecycleOwner, Observer { gameStarted ->
+            if (gameStarted) {
+                binding.buttonPlay.visibility = View.INVISIBLE
+                binding.imageViewHelp.visibility = View.INVISIBLE
+            } else {
+                binding.buttonPlay.visibility = View.VISIBLE
+                binding.imageViewHelp.visibility = View.VISIBLE
+            }
+        })
+
+        binding.imageViewHelp.setOnClickListener {
+            navController.navigate(GameFragment3x3Directions.actionGameFragment3x3ToInfoFragment())
+        }
 
         return binding.root
     }

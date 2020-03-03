@@ -1,10 +1,6 @@
 package com.boxofm.crazytiles
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -12,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
-import com.boxofm.crazytiles.ui.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -34,28 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         PreferenceManager.setDefaultValues(this,
                 R.xml.preferences, false)
-
-        /*val sharedPrefs: SharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this)
-
-        Timber.v("%s %s", "value of difficulty_level is ", sharedPrefs.getString("list_preference", "unknown")!!)*/
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun setupBottomNavMenu(navController: NavController) {

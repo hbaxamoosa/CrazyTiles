@@ -348,5 +348,15 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="box_sixteen_text,box_thirteen_text,box_fifteen_text,box_fourteen_text" />
 
+        <ImageView
+            android:id="@+id/imageViewHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/help_icon"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/timer_text"
+            app:srcCompat="@drawable/ic_help_outline_24px" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

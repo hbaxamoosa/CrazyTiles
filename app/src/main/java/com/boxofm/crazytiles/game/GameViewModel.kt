@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.R
 import timber.log.Timber
 
-
 private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
 private val PANIC_BUZZ_PATTERN = longArrayOf(0, 200)
 private val GAME_OVER_BUZZ_PATTERN = longArrayOf(0, 2000)
@@ -138,15 +137,18 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     val eventBuzz: LiveData<BuzzType>
         get() = _eventBuzz
 
+    private val _gameStarted = MutableLiveData<Boolean>()
+    val gameStarted: LiveData<Boolean>
+        get() = _gameStarted
 
-    private var gameStarted: Boolean
+
     val gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
 
     init {
         _score.value = 0
         _winner.value = false
         _eventGameFinish.value = false
-        gameStarted = false
+        _gameStarted.value = false
 
         // set tile colors
         when (difficultyLevel) {
@@ -180,7 +182,7 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     }
 
     fun startGame() {
-        gameStarted = true
+        _gameStarted.value = true
         timer.start()
     }
 
@@ -224,28 +226,28 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
 
     /** Methods for buttons presses **/
     fun tileOneClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileOneColor.value = updateTileColor(_tileOneColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileTwoClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileTwoColor.value = updateTileColor(_tileTwoColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileThreeClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileThreeColor.value = updateTileColor(_tileThreeColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileFourClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileFourColor.value = updateTileColor(_tileFourColor)
             isGameOver(gameDifficultyLevel.value)
         } else {
@@ -254,84 +256,84 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     }
 
     fun tileFiveClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileFiveColor.value = updateTileColor(_tileFiveColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileSixClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileSixColor.value = updateTileColor(_tileSixColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileSevenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileSevenColor.value = updateTileColor(_tileSevenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileEightClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileEightColor.value = updateTileColor(_tileEightColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileNineClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileNineColor.value = updateTileColor(_tileNineColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileTenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileTenColor.value = updateTileColor(_tileTenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileElevenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileElevenColor.value = updateTileColor(_tileElevenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileTwelveClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileTwelveColor.value = updateTileColor(_tileTwelveColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileThirteenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileThirteenColor.value = updateTileColor(_tileThirteenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileFourteenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileFourteenColor.value = updateTileColor(_tileFourteenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileFifteenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileFifteenColor.value = updateTileColor(_tileFifteenColor)
             isGameOver(gameDifficultyLevel.value)
         }
     }
 
     fun tileSixteenClicked() {
-        if (gameStarted) {
+        if (_gameStarted.value!!) {
             _tileSixteenColor.value = updateTileColor(_tileSixteenColor)
             isGameOver(gameDifficultyLevel.value)
         }
@@ -406,6 +408,7 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     fun onGameFinishComplete() {
         _winner.value = false
         _eventGameFinish.value = false
+        _gameStarted.value = false
     }
 
     override fun onCleared() {

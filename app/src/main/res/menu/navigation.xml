@@ -9,4 +9,10 @@
         android:id="@+id/infoFragment"
         android:icon="@drawable/info_24px"
         android:title="@string/bottom_nav_label_info" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings" />
+
 </menu>

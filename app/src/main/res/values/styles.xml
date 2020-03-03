@@ -35,7 +35,7 @@
 
     <style name="howToPlay">
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">32sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingBottom">16dp</item>
     </style>
