@@ -7,7 +7,8 @@
     <string name="box_four">Box Four</string>
     <string name="box_five">Box Five</string>
     <string name="how_to_play">How to play</string>
-    <string name="you_scored">You had</string>
+    <string name="win_text">Winner! You had</string>
+    <string name="lose_text">Sorry, you lost! You had</string>
     <string name="play_again">Play Again</string>
 
     <string name="title_difficulty_section">Game Difficulty</string>
@@ -58,4 +59,5 @@
     <string name="header_how_to_play">How to play</string>
     <string name="instructions_details">Flood the whole board with one color before time expires</string>
     <string name="help_icon">Help Icon</string>
+    <string name="taps">taps</string>
 </resources>

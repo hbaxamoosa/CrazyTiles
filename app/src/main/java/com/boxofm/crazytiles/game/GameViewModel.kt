@@ -250,8 +250,6 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         if (_gameStarted.value!!) {
             _tileFourColor.value = updateTileColor(_tileFourColor)
             isGameOver(gameDifficultyLevel.value)
-        } else {
-            Timber.v("%s %s", "game has not started yet. ", "click the start button!!")
         }
     }
 

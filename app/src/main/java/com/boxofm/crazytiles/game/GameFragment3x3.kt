@@ -94,7 +94,7 @@ class GameFragment3x3 : Fragment() {
             }
         })
 
-        // Hides the 'Start Game' button after the game has started
+        // Hides the 'Start Game' and 'Help' button after the game has started
         viewModel.gameStarted.observe(viewLifecycleOwner, Observer { gameStarted ->
             if (gameStarted) {
                 binding.buttonPlay.visibility = View.INVISIBLE
