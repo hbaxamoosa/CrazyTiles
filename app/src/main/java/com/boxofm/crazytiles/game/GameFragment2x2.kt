@@ -35,6 +35,7 @@ class GameFragment2x2 : Fragment() {
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
+        // TODO update as per the info on https://firebase.googleblog.com/2020/03/firebase-kotlin-ga.html
         // Firebase Remote Config
         remoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder()
