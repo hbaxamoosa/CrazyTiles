@@ -14,8 +14,10 @@ import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame2x2Binding
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import timber.log.Timber
 
 class GameFragment2x2 : Fragment() {
@@ -35,13 +37,16 @@ class GameFragment2x2 : Fragment() {
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
-        // TODO update as per the info on https://firebase.googleblog.com/2020/03/firebase-kotlin-ga.html
         // Firebase Remote Config
-        remoteConfig = FirebaseRemoteConfig.getInstance()
-        val configSettings = FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(Utils.getCacheExpiration())
-                .build()
+        val remoteConfig = Firebase.remoteConfig
+
+        // New settings builder syntax
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = Utils.getCacheExpiration()
+            fetchTimeoutInSeconds = 60
+        }
         remoteConfig.setConfigSettingsAsync(configSettings)
+
         remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
         time = Utils.fetchRemoteConfigValues(remoteConfig, sharedPrefs.getString("list_preference", "unknown")!!)
 
