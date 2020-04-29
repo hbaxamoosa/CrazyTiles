@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+// Add the Fabric plugin.
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 29
@@ -11,8 +13,8 @@ android {
         applicationId "com.boxofm.crazytiles"
         minSdkVersion 25
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.0.8"
+        versionCode 9
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,7 +33,7 @@ android {
         targetCompatibility = 1.8
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = "1.8"
     }
     viewBinding.enabled = true
 }
@@ -79,8 +81,8 @@ dependencies {
     // Firebase Analytics
     implementation 'com.google.firebase:firebase-analytics:17.4.0'
 
-    // Add the Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    // Add the Firebase Crashlytics dependency.
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     // Firebase Remote Config
     implementation 'com.google.firebase:firebase-config-ktx:19.1.4'
@@ -94,6 +96,3 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
-
-// Apply the Crashlytics Gradle plugin
-apply plugin: 'com.google.firebase.crashlytics'
