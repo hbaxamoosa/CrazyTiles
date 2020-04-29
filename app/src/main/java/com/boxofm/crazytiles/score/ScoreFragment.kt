@@ -34,13 +34,13 @@ class ScoreFragment : Fragment() {
                 false
         )
 
-        val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
+        val args: ScoreFragmentArgs by navArgs()
         val application = requireNotNull(this.activity).application
         val dataSource = GamesDatabase.getInstance(application).gamesDatabaseDao
         val sharesPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         val difficultyLevel: String = sharesPrefs.getString("list_preference", "unknown")!!
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, scoreFragmentArgs.winner, difficultyLevel, dataSource)
+        viewModelFactory = ScoreViewModelFactory(args.score, args.winner, difficultyLevel, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.scoreViewModel = viewModel
