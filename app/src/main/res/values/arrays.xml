@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- foreground color names array -->
     <string-array name="game_difficulty_names_array">
         <item>Easy</item>
         <item>Medium</item>
         <item>Hard</item>
     </string-array>
 
-    <!-- foreground color values array -->
     <string-array name="game_difficulty_values_array">
         <item>Easy</item>
         <item>Medium</item>
