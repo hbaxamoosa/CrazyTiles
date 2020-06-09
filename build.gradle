@@ -1,9 +1,35 @@
 ext {
-    sourceCompatibility = kotlin_version
+    sourceCompatibility = kotlinVersion
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.72'
+    ext{
+        // sdk and tools
+        compileSdkVersion = 29
+        minSdkVersion = 25
+        targetSdkVersion = 29
+
+        // app dependencies
+        activityVersion = '1.1.0'
+        appCompatVersion = '1.1.0'
+        constraintLayoutVersion = '2.0.0-beta6'
+        coreVersion = '1.4.0-alpha01'
+        coroutinesVersion = '1.3.0'
+        firebaseAnalyticsVersion = '17.4.3'
+        firebaseCrashlyticsVersion = '2.10.1'
+        firebasePerformanceVersion = '19.0.7'
+        firebaseRemoteConfigVersion = '19.1.4'
+        fragmentVersion = '1.2.4'
+        gradleVersion = '4.0.0'
+        kotlinVersion = '1.3.72'
+        lifecyclesVersion = '2.2.0'
+        materialDesignVersion = '1.3.0-alpha01'
+        navigationVersion = '2.2.2'
+        playServicesVersion = '4.3.3'
+        preferenceVersion = '1.1.1'
+        roomVersion = '2.2.5'
+        timberVersion = '4.7.1'
+    }
     repositories {
         google()
         jcenter()
@@ -12,10 +38,10 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
-        classpath 'com.google.gms:google-services:4.3.3'
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "com.google.gms:google-services:$playServicesVersion"
         // Add the Fabric Crashlytics plugin.
         classpath 'io.fabric.tools:gradle:1.31.2'
     }
