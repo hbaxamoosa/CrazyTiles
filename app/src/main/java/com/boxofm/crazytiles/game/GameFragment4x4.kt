@@ -9,13 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import timber.log.Timber
@@ -26,13 +26,13 @@ class GameFragment4x4 : Fragment() {
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: FragmentGame4x4Binding
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-    private lateinit var remoteConfig: FirebaseRemoteConfig
+    private lateinit var sharedPrefs: SharedPreferences
+    private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val time: Long
-        val sharedPrefs: SharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(activity)
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
@@ -64,29 +64,6 @@ class GameFragment4x4 : Fragment() {
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
-        // Sets up an Observer to react to the game difficulty level selection
-        val navController = findNavController()
-        viewModel.gameDifficultyLevel.observe(viewLifecycleOwner, Observer {
-            /*Timber.v("%s %s", "value of level is ", level)*/
-            when (it) {
-                GameViewModel.GameDifficultyLevel.EASY -> {
-                    navController.navigate(R.id.action_gameFragment4x4_to_gameFragment2x2)
-                }
-                GameViewModel.GameDifficultyLevel.MEDIUM -> {
-                    navController.navigate(R.id.action_gameFragment4x4_to_gameFragment3x3)
-                }
-                GameViewModel.GameDifficultyLevel.HARD -> {
-                    // Firebase Analytics
-                    val bundle = Bundle()
-                    bundle.putString("level", sharedPrefs.getString("list_preference", "unknown")!!)
-                    firebaseAnalytics.logEvent("game_difficulty", bundle)
-                }
-                else -> {
-                    Timber.v("%s %s", "something BAD is ", "happening")
-                }
-            }
-        })
-
         // Sets up event listening to navigate the player when the game is finished
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
@@ -116,5 +93,29 @@ class GameFragment4x4 : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val difficultyLevel: String = sharedPrefs.getString("list_preference", "unknown")!!
+        // Timber.v("%s %s", "inside onStart() value of difficultyLevel", difficultyLevel)
+
+        when (difficultyLevel) {
+            "Easy" -> {
+                findNavController().navigate(R.id.action_gameFragment4x4_to_gameFragment2x2)
+            }
+            "Medium" -> {
+                findNavController().navigate(R.id.action_gameFragment4x4_to_gameFragment3x3)
+            }
+            "Hard" -> {
+                // Firebase Analytics
+                val bundle = Bundle()
+                bundle.putString("level", difficultyLevel)
+                firebaseAnalytics.logEvent("game_difficulty", bundle)
+            }
+            else -> {
+                Timber.v("%s %s", "something BAD is ", "happening")
+            }
+        }
     }
 }

@@ -142,7 +142,9 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         get() = _gameStarted
 
 
-    val gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
+    private val _gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
+    val gameDifficultyLevel: LiveData<GameDifficultyLevel>
+        get() = _gameDifficultyLevel
 
     init {
         _score.value = 0
@@ -153,15 +155,15 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         // set tile colors
         when (difficultyLevel) {
             "Easy" -> {
-                gameDifficultyLevel.value = GameDifficultyLevel.EASY
+                _gameDifficultyLevel.value = GameDifficultyLevel.EASY
                 setup2x2()
             }
             "Medium" -> {
-                gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
+                _gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
                 setup3x3()
             }
             "Hard" -> {
-                gameDifficultyLevel.value = GameDifficultyLevel.HARD
+                _gameDifficultyLevel.value = GameDifficultyLevel.HARD
                 setup4x4()
             }
             else -> Timber.v("value of BAD")
@@ -184,6 +186,25 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     fun startGame() {
         _gameStarted.value = true
         timer.start()
+    }
+
+    fun setGameDifficultyLevel(difficultyLevel: String) {
+        Timber.v("%s %s", "inside setGameDifficultyLevel", difficultyLevel)
+        when (difficultyLevel) {
+            "Easy" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.EASY
+                setup2x2()
+            }
+            "Medium" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
+                setup3x3()
+            }
+            "Hard" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.HARD
+                setup4x4()
+            }
+            else -> Timber.v("value of BAD")
+        }
     }
 
     fun setup2x2() {
