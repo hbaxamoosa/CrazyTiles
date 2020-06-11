@@ -28,18 +28,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guidelineTop"
             tools:text="@tools:sample/date/hhmm" />
 
         <TextView
             android:id="@+id/box_one_text"
             style="@style/whiteBox"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileOneColor)}"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{() -> gameViewModel.tileOneClicked()}"
             app:layout_constraintBottom_toTopOf="@id/box_three_text"
+            app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toStartOf="@+id/box_two_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
@@ -50,12 +51,13 @@
         <TextView
             android:id="@+id/box_two_text"
             style="@style/whiteBox"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileTwoColor)}"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{() -> gameViewModel.tileTwoClicked()}"
             app:layout_constraintBottom_toTopOf="@+id/box_four_text"
+            app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_one_text"
@@ -66,12 +68,13 @@
         <TextView
             android:id="@+id/box_three_text"
             style="@style/whiteBox"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileThreeColor)}"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{() -> gameViewModel.tileThreeClicked()}"
-            app:layout_constraintBottom_toTopOf="@+id/button_play"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toStartOf="@+id/box_four_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -83,12 +86,13 @@
         <TextView
             android:id="@+id/box_four_text"
             style="@style/whiteBox"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
             android:background="@{ContextCompat.getColor(context, gameViewModel.tileFourColor)}"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{() -> gameViewModel.tileFourClicked()}"
-            app:layout_constraintBottom_toTopOf="@+id/button_play"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/box_three_text"
@@ -102,8 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/button_start_game"
             android:onClick="@{() -> gameViewModel.startGame()}"
+            android:text="@string/button_start_game"
             android:theme="@style/GoButton"
             app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
@@ -145,8 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="box_four_text,box_three_text"
-            tools:layout_editor_absoluteY="731dp" />
+            app:constraint_referenced_ids="box_four_text,box_three_text" />
 
         <ImageView
             android:id="@+id/imageViewHelp"
@@ -156,6 +159,7 @@
             android:contentDescription="@string/help_icon"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/timer_text"
+            app:layout_constraintBottom_toTopOf="@id/guidelineTop"
             app:srcCompat="@drawable/ic_help_outline_24px" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

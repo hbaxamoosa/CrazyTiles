@@ -36,6 +36,9 @@ class GameFragment4x4 : Fragment() {
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
+        // NavController
+        navController = findNavController()
+
         // Firebase Remote Config
         val remoteConfig = Firebase.remoteConfig
 
