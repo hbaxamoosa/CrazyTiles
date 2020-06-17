@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,9 +30,20 @@ class GameFragment3x3 : Fragment() {
     private lateinit var sharedPrefs: SharedPreferences
     private lateinit var navController: NavController
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // This callback will only be called when MyFragment is at least Started.
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requireActivity().finish()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val time: Long
+        val difficultyLevel: String
+
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
@@ -50,7 +62,8 @@ class GameFragment3x3 : Fragment() {
         remoteConfig.setConfigSettingsAsync(configSettings)
 
         remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
-        time = Utils.fetchRemoteConfigValues(remoteConfig, sharedPrefs.getString("list_preference", "unknown")!!)
+        difficultyLevel = sharedPrefs.getString("list_preference", "unknown")!!
+        time = Utils.fetchRemoteConfigValues(remoteConfig, difficultyLevel)
 
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_3x3, container, false
@@ -76,16 +89,18 @@ class GameFragment3x3 : Fragment() {
                 /*Timber.v("%s %s", "value of winner is ", winner)*/
                 val action = GameFragment3x3Directions.actionGameFragment3x3ToScoreFragment(currentScore, winner!!)
                 navController.navigate(action)
-                viewModel.onGameFinishComplete()
+                viewModel.onGameFinishComplete(difficultyLevel)
             }
         })
 
         // Hides the 'Start Game' and 'Help' button after the game has started
         viewModel.gameStarted.observe(viewLifecycleOwner, Observer { gameStarted ->
             if (gameStarted) {
+                binding.timerText.visibility = View.VISIBLE
                 binding.buttonPlay.visibility = View.INVISIBLE
                 binding.imageViewHelp.visibility = View.INVISIBLE
             } else {
+                binding.timerText.visibility = View.INVISIBLE
                 binding.buttonPlay.visibility = View.VISIBLE
                 binding.imageViewHelp.visibility = View.VISIBLE
             }

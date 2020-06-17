@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gameFragment2x2_destination"
         android:name="com.boxofm.crazytiles.game.GameFragment2x2"
-        android:label="fragment_game"
+        android:label="GameFragment2x2"
         tools:layout="@layout/fragment_game_2x2">
         <action
             android:id="@+id/action_gameFragment2x2_to_scoreFragment"
@@ -17,39 +17,28 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_gameFragment2x2_to_gameFragment3x3"
             app:destination="@id/gameFragment3x3_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment2x2_to_gameFragment4x4"
             app:destination="@id/gameFragment4x4_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment2x2_to_infoFragment"
             app:destination="@id/infoFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment3x3_destination"
@@ -61,41 +50,31 @@
             app:destination="@id/score_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_gameFragment3x3_to_gameFragment2x2"
             app:destination="@id/gameFragment2x2_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment3x3_to_gameFragment4x4"
             app:destination="@id/gameFragment4x4_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment3x3_to_infoFragment"
             app:destination="@id/infoFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/gameFragment3x3_destination" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment4x4_destination"
@@ -109,39 +88,28 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment4x4_to_gameFragment2x2"
             app:destination="@id/gameFragment2x2_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment4x4_to_gameFragment3x3"
             app:destination="@id/gameFragment3x3_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment4x4_to_infoFragment"
             app:destination="@id/infoFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/score_destination"
@@ -153,11 +121,8 @@
             app:destination="@id/gameFragment2x2_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/gameFragment2x2_destination"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="score"
             android:defaultValue="0"

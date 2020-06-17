@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,6 +29,17 @@ class GameFragment2x2 : Fragment() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var sharedPrefs: SharedPreferences
     private lateinit var navController: NavController
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // This callback will only be called when MyFragment is at least Started.
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requireActivity().finish()
+        }
+    }
+
+    // The callback can be enabled or disabled here or in the lambda
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -78,16 +90,18 @@ class GameFragment2x2 : Fragment() {
                 /*Timber.v("%s %s", "value of winner is ", winner)*/
                 val action = GameFragment2x2Directions.actionGameFragment2x2ToScoreFragment(currentScore, winner!!)
                 navController.navigate(action)
-                viewModel.onGameFinishComplete()
+                viewModel.onGameFinishComplete(difficultyLevel)
             }
         })
 
         // Hides the 'Start Game' and 'Help' button after the game has started
         viewModel.gameStarted.observe(viewLifecycleOwner, Observer { gameStarted ->
             if (gameStarted) {
+                binding.timerText.visibility = View.VISIBLE
                 binding.buttonPlay.visibility = View.INVISIBLE
                 binding.imageViewHelp.visibility = View.INVISIBLE
             } else {
+                binding.timerText.visibility = View.INVISIBLE
                 binding.buttonPlay.visibility = View.VISIBLE
                 binding.imageViewHelp.visibility = View.VISIBLE
             }

@@ -18,14 +18,6 @@ private val NO_BUZZ_PATTERN = longArrayOf(0)
  * ViewModel containing all the logic needed to run the game
  */
 class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
-    // These are the three different types of buzzing in the game. Buzz pattern is the number of
-    // milliseconds each interval of buzzing and non-buzzing takes.
-    enum class BuzzType(val pattern: LongArray) {
-        CORRECT(CORRECT_BUZZ_PATTERN),
-        GAME_OVER(GAME_OVER_BUZZ_PATTERN),
-        COUNTDOWN_PANIC(PANIC_BUZZ_PATTERN),
-        NO_BUZZ(NO_BUZZ_PATTERN)
-    }
 
     enum class GameDifficultyLevel {
         EASY,
@@ -132,11 +124,6 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
-    // Event that triggers the phone to buzz using different patterns, determined by BuzzType
-    private val _eventBuzz = MutableLiveData<BuzzType>()
-    val eventBuzz: LiveData<BuzzType>
-        get() = _eventBuzz
-
     private val _gameStarted = MutableLiveData<Boolean>()
     val gameStarted: LiveData<Boolean>
         get() = _gameStarted
@@ -186,25 +173,6 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     fun startGame() {
         _gameStarted.value = true
         timer.start()
-    }
-
-    fun setGameDifficultyLevel(difficultyLevel: String) {
-        Timber.v("%s %s", "inside setGameDifficultyLevel", difficultyLevel)
-        when (difficultyLevel) {
-            "Easy" -> {
-                _gameDifficultyLevel.value = GameDifficultyLevel.EASY
-                setup2x2()
-            }
-            "Medium" -> {
-                _gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
-                setup3x3()
-            }
-            "Hard" -> {
-                _gameDifficultyLevel.value = GameDifficultyLevel.HARD
-                setup4x4()
-            }
-            else -> Timber.v("value of BAD")
-        }
     }
 
     fun setup2x2() {
@@ -423,11 +391,29 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
     }
 
     /** Methods for completed events **/
-
-    fun onGameFinishComplete() {
+    fun onGameFinishComplete(difficultyLevel: String) {
         _winner.value = false
         _eventGameFinish.value = false
         _gameStarted.value = false
+        _score.value = 0
+        _currentTime.value = DONE
+        timer.cancel()
+
+        when (difficultyLevel) {
+            "Easy" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.EASY
+                setup2x2()
+            }
+            "Medium" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.MEDIUM
+                setup3x3()
+            }
+            "Hard" -> {
+                _gameDifficultyLevel.value = GameDifficultyLevel.HARD
+                setup4x4()
+            }
+            else -> Timber.v("value of BAD")
+        }
     }
 
     override fun onCleared() {

@@ -10,7 +10,6 @@ import androidx.preference.PreferenceManager
 import com.boxofm.crazytiles.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
 private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
