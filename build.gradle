@@ -5,10 +5,9 @@ ext {
 buildscript {
     ext{
         // sdk and tools
-        compileSdkVersion = 29
+        compileSdkVersion = 30
         minSdkVersion = 25
-        targetSdkVersion = 29
-        buildToolsVersion = "29.0.3"
+        targetSdkVersion = 30
 
         // app dependencies
         activityVersion = '1.2.0'
