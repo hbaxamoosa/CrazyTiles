@@ -8,7 +8,6 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion = rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.boxofm.crazytiles"
         minSdkVersion rootProject.minSdkVersion
