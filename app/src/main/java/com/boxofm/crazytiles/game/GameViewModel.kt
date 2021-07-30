@@ -328,18 +328,45 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
 
     fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
         var newTileColor: Int = tileColor.value!!
-        // Timber.v("%s %s", "value of eventGameFinished", eventGameFinish.value)
-        val randomInt = (0..3).random()
+        // Timber.v("%s %s", "value of tileColor", tileColor.value)
+        val randomInt = (0..2).random()
         // Timber.v("%s %s", "value of randomInt is", randomInt)
         // Timber.v("%s %s", "value of newTileColor is", newTileColor)
         if (!eventGameFinish.value!!) {
-            when (randomInt) {
-                0 -> newTileColor = R.color.yellow
-                1 -> newTileColor = R.color.green
-                2 -> newTileColor = R.color.red
-                3 -> newTileColor = R.color.blue
+            if (tileColor.value == R.color.red) {
+                when (randomInt) {
+                    0 -> newTileColor = R.color.yellow
+                    1 -> newTileColor = R.color.green
+                    2 -> newTileColor = R.color.blue
+                }
+            }
+            if (tileColor.value == R.color.blue) {
+                when (randomInt) {
+                    0 -> newTileColor = R.color.yellow
+                    1 -> newTileColor = R.color.green
+                    2 -> newTileColor = R.color.red
+                }
+            }
+            if (tileColor.value == R.color.yellow) {
+                when (randomInt) {
+                    0 -> newTileColor = R.color.blue
+                    1 -> newTileColor = R.color.green
+                    2 -> newTileColor = R.color.red
+                }
+            }
+            if (tileColor.value == R.color.green) {
+                when (randomInt) {
+                    0 -> newTileColor = R.color.blue
+                    1 -> newTileColor = R.color.yellow
+                    2 -> newTileColor = R.color.red
+                }
             }
         }
+        // Timber.v("%s %s", "value of R.color.yellow", R.color.yellow)
+        // Timber.v("%s %s", "value of R.color.green", R.color.green)
+        // Timber.v("%s %s", "value of R.color.red", R.color.red)
+        // Timber.v("%s %s", "value of R.color.blue", R.color.blue)
+        // Timber.v("%s %s", "value of newTileColor", newTileColor)
         _score.value = (_score.value)?.plus(1)
         // Timber.v("%s %s", "value of newTileColor is", newTileColor)
         return newTileColor
