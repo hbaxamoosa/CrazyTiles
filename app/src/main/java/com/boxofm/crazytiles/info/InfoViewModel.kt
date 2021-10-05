@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.database.GamesDatabaseDao
 import kotlinx.coroutines.*
-import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
 
@@ -134,7 +133,7 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
     private suspend fun getWinByLevel(level: String): Int {
         return withContext(Dispatchers.IO) {
             val count: Int = database.getWinsByLevel(level)!!
-            Timber.v("%s %s %s %s", "value of ", level, " is ", count)
+            // Timber.v("%s %s %s %s", "value of ", level, " is ", count)
             count
         }
     }
