@@ -397,22 +397,24 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
             }
             GameDifficultyLevel.HARD -> { // board is 4x4
                 if (_tileOneColor.value == _tileTwoColor.value
-                        && _tileTwoColor.value == _tileThreeColor.value
-                        && _tileThreeColor.value == _tileFourColor.value
-                        && _tileFourColor.value == _tileFiveColor.value
-                        && _tileFiveColor.value == _tileSixColor.value
-                        && _tileSixColor.value == _tileSevenColor.value
-                        && _tileSevenColor.value == _tileEightColor.value
-                        && _tileEightColor.value == _tileNineColor.value
-                        && _tileNineColor.value == _tileTenColor.value
-                        && _tileTenColor.value == _tileElevenColor.value
-                        && _tileElevenColor.value == _tileTwelveColor.value
-                        && _tileTwelveColor.value == _tileThirteenColor.value
-                        && _tileThirteenColor.value == _tileFourteenColor.value) {
+                    && _tileTwoColor.value == _tileThreeColor.value
+                    && _tileThreeColor.value == _tileFourColor.value
+                    && _tileFourColor.value == _tileFiveColor.value
+                    && _tileFiveColor.value == _tileSixColor.value
+                    && _tileSixColor.value == _tileSevenColor.value
+                    && _tileSevenColor.value == _tileEightColor.value
+                    && _tileEightColor.value == _tileNineColor.value
+                    && _tileNineColor.value == _tileTenColor.value
+                    && _tileTenColor.value == _tileElevenColor.value
+                    && _tileElevenColor.value == _tileTwelveColor.value
+                    && _tileTwelveColor.value == _tileThirteenColor.value
+                    && _tileThirteenColor.value == _tileFourteenColor.value
+                ) {
                     _winner.value = true
                     _eventGameFinish.value = true
                 }
             }
+            else -> {}
         }
 
     }

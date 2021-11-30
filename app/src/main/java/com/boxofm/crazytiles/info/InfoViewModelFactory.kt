@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.boxofm.crazytiles.database.GamesDatabaseDao
 
 class InfoViewModelFactory(private val dataSource: GamesDatabaseDao) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InfoViewModel::class.java)) {
             return InfoViewModel(dataSource) as T
         }

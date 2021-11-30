@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.database.GamesDatabase
 import com.boxofm.crazytiles.databinding.FragmentInfoBinding
-import timber.log.Timber
 
 class InfoFragment : Fragment() {
 
@@ -20,10 +19,10 @@ class InfoFragment : Fragment() {
     private lateinit var viewModelFactory: InfoViewModelFactory
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
 
@@ -39,9 +38,9 @@ class InfoFragment : Fragment() {
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
-        viewModel.gameReset.observe(this, Observer { resetGame ->
+        viewModel.gameReset.observe(viewLifecycleOwner, Observer { resetGame ->
             if (resetGame) {
-                Timber.v("%s %s", "game reset requested. Value of resetGame is ", resetGame)
+                // Timber.v("%s %s", "game reset requested. Value of resetGame is ", resetGame)
                 viewModel.resetStatsComplete()
             }
         })
