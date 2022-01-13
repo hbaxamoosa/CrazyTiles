@@ -8,9 +8,9 @@ object Utils {
     var cache: Long = 3600
 
     fun getCacheExpiration(): Long {
-        if (BuildConfig.DEBUG)
-            cache = 2
-        else cache = 3600
+        cache = if (BuildConfig.DEBUG)
+            2
+        else 3600
         return cache
     }
 
@@ -29,20 +29,20 @@ object Utils {
                         Timber.v("Fetch and activate failed")
                     }
                 }
-        when (difficultyLevel) { // Set the time for the game
+        return when (difficultyLevel) { // Set the time for the game
             "Easy" -> {
                 /*Timber.v("%s %s", "value of difficulty_level_easy is ", remoteConfig.getLong("difficulty_level_easy"))*/
-                return remoteConfig.getLong("difficulty_level_easy")
+                remoteConfig.getLong("difficulty_level_easy")
             }
             "Medium" -> {
                 /*Timber.v("%s %s", "value of difficulty_level_medium is ", remoteConfig.getLong("difficulty_level_medium"))*/
-                return remoteConfig.getLong("difficulty_level_medium")
+                remoteConfig.getLong("difficulty_level_medium")
             }
             "Hard" -> {
                 /*Timber.v("%s %s", "value of difficulty_level_hard is ", remoteConfig.getLong("difficulty_level_hard"))*/
-                return remoteConfig.getLong("difficulty_level_hard")
+                remoteConfig.getLong("difficulty_level_hard")
             }
-            else -> return 5000L
+            else -> 5000L
         }
     }
 }

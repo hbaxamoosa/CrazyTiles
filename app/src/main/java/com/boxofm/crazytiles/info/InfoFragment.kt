@@ -36,7 +36,7 @@ class InfoFragment : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.gameReset.observe(viewLifecycleOwner, Observer { resetGame ->
             if (resetGame) {

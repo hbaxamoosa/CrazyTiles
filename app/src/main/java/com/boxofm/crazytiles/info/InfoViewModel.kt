@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.database.GamesDatabaseDao
 import kotlinx.coroutines.*
+import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
 
@@ -89,22 +90,22 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
         getLossByLevels(levelEasy)
         getLossByLevels(levelMedium)
         getLossByLevels(levelHard)
-        getPercantageByLevels(levelEasy)
-        getPercantageByLevels(levelMedium)
-        getPercantageByLevels(levelHard)
+        getPercentageByLevels(levelEasy)
+        getPercentageByLevels(levelMedium)
+        getPercentageByLevels(levelHard)
     }
 
     private fun getTotalGames() {
         uiScope.launch {
             _totalGames.value = getCountOfAllGames()
-//            Timber.v("%s %s", "value of _totalGames.value is ", _totalGames.value)
+            Timber.v("%s %s", "value of _totalGames.value is ", _totalGames.value)
         }
     }
 
     private suspend fun getCountOfAllGames(): Int {
         return withContext(Dispatchers.IO) {
             val count: Int = database.getTotalNumberOfGames()!!
-//            Timber.v("%s %s", "value of count is ", count)
+            Timber.v("%s %s", "value of count is ", count)
             count
         }
     }
@@ -114,17 +115,16 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             when (level) {
                 "Easy" -> {
                     _winsEasy.value = getWinByLevel(level)
-                    /*Timber.v("%s %s", "value of _winsEasy.value is ", _winsEasy.value)*/
+                    Timber.v("%s %s", "value of _winsEasy.value is ", _winsEasy.value)
                 }
                 "Medium" -> {
                     _winsMedium.value = getWinByLevel(level)
-                    /*Timber.v("%s %s", "value of _winsMedium.value is ", _winsMedium.value)*/
+                    Timber.v("%s %s", "value of _winsMedium.value is ", _winsMedium.value)
 
                 }
                 "Hard" -> {
                     _winsHard.value = getWinByLevel(level)
-                    /*Timber.v("%s %s", "value of _winsHard.value is ", _winsHard.value)*/
-
+                    Timber.v("%s %s", "value of _winsHard.value is ", _winsHard.value)
                 }
             }
         }
@@ -133,7 +133,7 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
     private suspend fun getWinByLevel(level: String): Int {
         return withContext(Dispatchers.IO) {
             val count: Int = database.getWinsByLevel(level)!!
-            // Timber.v("%s %s %s %s", "value of ", level, " is ", count)
+            Timber.v("%s %s %s %s", "value of ", level, " is ", count)
             count
         }
     }
@@ -143,15 +143,15 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
             when (level) {
                 "Easy" -> {
                     _lossEasy.value = getLossByLevel(levelEasy)
-                    /*Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)*/
+                    Timber.v("%s %s", "value of _lossEasy.value is ", _lossEasy.value)
                 }
                 "Medium" -> {
                     _lossMedium.value = getLossByLevel(levelMedium)
-                    /*Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)*/
+                    Timber.v("%s %s", "value of _lossMedium.value is ", _lossMedium.value)
                 }
                 "Hard" -> {
                     _lossHard.value = getLossByLevel(levelHard)
-                    /*Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)*/
+                    Timber.v("%s %s", "value of _lossHard.value is ", _lossHard.value)
                 }
             }
         }
@@ -163,7 +163,7 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
         }
     }
 
-    private fun getPercantageByLevels(level: String) {
+    private fun getPercentageByLevels(level: String) {
         uiScope.launch {
             when (level) {
                 "Easy" -> {
@@ -186,15 +186,15 @@ class InfoViewModel(val database: GamesDatabaseDao) : ViewModel() {
         return withContext(Dispatchers.IO) {
             val total: Double = database.getTotalNumberOfGamesDouble(level)!!
             val winCount: Double = database.getWinsByLevelDouble(level)!!
-            /*Timber.v("%s %s %s %s", "value of ", level, " is total ", total)*/
-            /*Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)*/
+            Timber.v("%s %s %s %s", "value of ", level, " is total ", total)
+            Timber.v("%s %s %s %s", "value of ", level, " is winCount ", winCount)
             val format: NumberFormat = NumberFormat.getPercentInstance(Locale.US)
             val percentage: String
             if (total == 0.0) {
                 percentage = "0%"
             } else {
                 percentage = format.format(winCount / total)
-                /*Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)*/
+                Timber.v("%s %s %s %s", "value of ", level, " is percentage ", percentage)
             }
             percentage
         }

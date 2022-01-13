@@ -9,11 +9,6 @@ import androidx.lifecycle.ViewModel
 import com.boxofm.crazytiles.R
 import timber.log.Timber
 
-private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
-private val PANIC_BUZZ_PATTERN = longArrayOf(0, 200)
-private val GAME_OVER_BUZZ_PATTERN = longArrayOf(0, 2000)
-private val NO_BUZZ_PATTERN = longArrayOf(0)
-
 /**
  * ViewModel containing all the logic needed to run the game
  */
@@ -130,7 +125,7 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
 
 
     private val _gameDifficultyLevel = MutableLiveData<GameDifficultyLevel>()
-    val gameDifficultyLevel: LiveData<GameDifficultyLevel>
+    private val gameDifficultyLevel: LiveData<GameDifficultyLevel>
         get() = _gameDifficultyLevel
 
     init {
@@ -175,14 +170,14 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         timer.start()
     }
 
-    fun setup2x2() {
+    private fun setup2x2() {
         _tileOneColor.value = R.color.yellow
         _tileTwoColor.value = R.color.green
         _tileThreeColor.value = R.color.blue
         _tileFourColor.value = R.color.red
     }
 
-    fun setup3x3() {
+    private fun setup3x3() {
         _tileOneColor.value = R.color.blue
         _tileTwoColor.value = R.color.yellow
         _tileThreeColor.value = R.color.green
@@ -194,7 +189,7 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         _tileNineColor.value = R.color.red
     }
 
-    fun setup4x4() {
+    private fun setup4x4() {
         _tileOneColor.value = R.color.red
         _tileTwoColor.value = R.color.green
         _tileThreeColor.value = R.color.blue
@@ -326,7 +321,7 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         }
     }
 
-    fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
+    private fun updateTileColor(tileColor: MutableLiveData<Int>): Int {
         var newTileColor: Int = tileColor.value!!
         // Timber.v("%s %s", "value of tileColor", tileColor.value)
         val randomInt = (0..2).random()
@@ -416,7 +411,6 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
             }
             else -> {}
         }
-
     }
 
     /** Methods for completed events **/

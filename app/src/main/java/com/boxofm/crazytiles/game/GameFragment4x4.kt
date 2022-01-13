@@ -42,7 +42,6 @@ class GameFragment4x4 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val time: Long
-        val difficultyLevel: String
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
@@ -62,7 +61,7 @@ class GameFragment4x4 : Fragment() {
         remoteConfig.setConfigSettingsAsync(configSettings)
 
         remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
-        difficultyLevel = sharedPrefs.getString("list_preference", "unknown")!!
+        val difficultyLevel: String = sharedPrefs.getString("list_preference", "unknown")!!
         time = Utils.fetchRemoteConfigValues(remoteConfig, difficultyLevel)
 
         binding = DataBindingUtil.inflate(
@@ -78,7 +77,7 @@ class GameFragment4x4 : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // Sets up event listening to navigate the player when the game is finished
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
@@ -115,10 +114,9 @@ class GameFragment4x4 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val difficultyLevel: String = sharedPrefs.getString("list_preference", "unknown")!!
         // Timber.v("%s %s", "inside onStart() value of difficultyLevel", difficultyLevel)
 
-        when (difficultyLevel) {
+        when (val difficultyLevel: String = sharedPrefs.getString("list_preference", "unknown")!!) {
             "Easy" -> {
                 findNavController().navigate(R.id.action_gameFragment4x4_to_gameFragment2x2)
             }
