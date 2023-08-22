@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.devtools.ksp'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.boxofm.crazytiles"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 18
-        versionName "1.0.18"
+        versionCode 20
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,7 +34,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildToolsVersion '31.0.0'
+    namespace 'com.boxofm.crazytiles'
+    compileSdk 33
 }
 
 dependencies {
@@ -64,7 +65,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    ksp "androidx.room:room-compiler:$rootProject.roomVersion"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
@@ -72,19 +73,24 @@ dependencies {
     // Jake Wharton's Timber logging library https://github.com/JakeWharton/timber
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
-    // Firebase Analytics
-    implementation "com.google.firebase:firebase-analytics:$rootProject.firebaseAnalyticsVersion"
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     // Add the Firebase Crashlytics SDK.
-    implementation "com.google.firebase:firebase-crashlytics:$rootProject.firebaseCrashlyticsVersion"
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
 
     // Firebase Remote Config
-    implementation "com.google.firebase:firebase-config-ktx:$rootProject.firebaseRemoteConfigVersion"
+    implementation "com.google.firebase:firebase-config-ktx"
 
     // Firebase Performance Monitoring library
-    implementation "com.google.firebase:firebase-perf:$rootProject.firebasePerformanceVersion"
+    implementation "com.google.firebase:firebase-perf-ktx"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

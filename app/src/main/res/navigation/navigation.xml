@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/gameFragment2x2_destination"
         android:name="com.boxofm.crazytiles.game.GameFragment2x2"
-        android:label="GameFragment2x2"
+        android:label="@string/GameFragment2x2"
         tools:layout="@layout/fragment_game_2x2">
         <action
             android:id="@+id/action_gameFragment2x2_to_scoreFragment"
             app:destination="@id/score_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:launchSingleTop="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment2x2_to_gameFragment3x3"
             app:destination="@id/gameFragment3x3_destination"
@@ -43,16 +43,16 @@
     <fragment
         android:id="@+id/gameFragment3x3_destination"
         android:name="com.boxofm.crazytiles.game.GameFragment3x3"
-        android:label="GameFragment3x3"
+        android:label="@string/GameFragment3x3"
         tools:layout="@layout/fragment_game_3x3">
         <action
             android:id="@+id/action_gameFragment3x3_to_scoreFragment"
             app:destination="@id/score_destination"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:launchSingleTop="true" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_gameFragment3x3_to_gameFragment2x2"
             app:destination="@id/gameFragment2x2_destination"
@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/gameFragment4x4_destination"
         android:name="com.boxofm.crazytiles.game.GameFragment4x4"
-        android:label="GameFragment4x4"
+        android:label="@string/GameFragment4x4"
         tools:layout="@layout/fragment_game_4x4">
         <action
             android:id="@+id/action_gameFragment4x4_to_scoreFragment"
@@ -114,7 +114,7 @@
     <fragment
         android:id="@+id/score_destination"
         android:name="com.boxofm.crazytiles.score.ScoreFragment"
-        android:label="score_fragment"
+        android:label="@string/ScoreFragment"
         tools:layout="@layout/score_fragment">
         <action
             android:id="@+id/action_scoreFragment_to_gameFragment"
@@ -124,22 +124,21 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
-            android:name="score"
-            android:defaultValue="0"
-            app:argType="integer" />
-        <argument
             android:name="winner"
-            android:defaultValue="false"
-            app:argType="boolean" />
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.boxofm.crazytiles.info.InfoFragment"
-        android:label="InfoFragment"
+        android:label="@string/InfoFragment"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.boxofm.crazytiles.settings.SettingsFragment"
-        android:label="SettingsFragment"
+        android:label="@string/SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -60,4 +60,12 @@
     <string name="instructions_details">Flood the whole board with one color before time expires</string>
     <string name="help_icon">Help Icon</string>
     <string name="taps">taps</string>
+
+    <!-- Navigation -->
+    <string name="GameFragment2x2">GameFragment2x2</string>
+    <string name="GameFragment3x3">GameFragment3x3</string>
+    <string name="GameFragment4x4">GameFragment4x4</string>
+    <string name="ScoreFragment">ScoreFragment</string>
+    <string name="InfoFragment">InfoFragment</string>
+    <string name="SettingsFragment">SettingsFragment</string>
 </resources>

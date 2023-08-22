@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -17,6 +16,7 @@ import com.boxofm.crazytiles.R
 import com.boxofm.crazytiles.databinding.FragmentGame4x4Binding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import timber.log.Timber
@@ -39,11 +39,11 @@ class GameFragment4x4 : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val time: Long
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        sharedPrefs = activity?.let { PreferenceManager.getDefaultSharedPreferences(it) }!!
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
@@ -51,7 +51,7 @@ class GameFragment4x4 : Fragment() {
         navController = findNavController()
 
         // Firebase Remote Config
-        val remoteConfig = Firebase.remoteConfig
+        val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
 
         // New settings builder syntax
         val configSettings = remoteConfigSettings {
@@ -69,7 +69,7 @@ class GameFragment4x4 : Fragment() {
         )
 
         viewModelFactory = GameViewModelFactory(sharedPrefs.getString("list_preference", "unknown")!!, time)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
 
         // Set the viewmodel for databinding - this allows the bound layout access to all of the
         // data in the VieWModel
@@ -80,20 +80,23 @@ class GameFragment4x4 : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Sets up event listening to navigate the player when the game is finished
-        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
+        viewModel.eventGameFinish.observe(viewLifecycleOwner) { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
                 /*Timber.v("%s %s", "value of currentScore is ", currentScore)*/
                 val winner = viewModel.winner.value
                 /*Timber.v("%s %s", "value of winner is ", winner)*/
-                val action = GameFragment4x4Directions.actionGameFragment4x4ToScoreFragment(currentScore, winner!!)
+                val action = GameFragment4x4Directions.actionGameFragment4x4ToScoreFragment(
+                    currentScore,
+                    winner!!
+                )
                 findNavController().navigate(action)
                 viewModel.onGameFinishComplete(difficultyLevel)
             }
-        })
+        }
 
         // Hides the 'Start Game' and 'Help' button after the game has started
-        viewModel.gameStarted.observe(viewLifecycleOwner, Observer { gameStarted ->
+        viewModel.gameStarted.observe(viewLifecycleOwner) { gameStarted ->
             if (gameStarted) {
                 binding.timerText.visibility = View.VISIBLE
                 binding.buttonPlay.visibility = View.INVISIBLE
@@ -103,7 +106,7 @@ class GameFragment4x4 : Fragment() {
                 binding.buttonPlay.visibility = View.VISIBLE
                 binding.imageViewHelp.visibility = View.VISIBLE
             }
-        })
+        }
 
         binding.imageViewHelp.setOnClickListener {
             navController.navigate(GameFragment4x4Directions.actionGameFragment4x4ToInfoFragment())

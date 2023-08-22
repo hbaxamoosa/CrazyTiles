@@ -4,8 +4,8 @@ import android.os.CountDownTimer
 import android.text.format.DateUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.boxofm.crazytiles.R
 import timber.log.Timber
 
@@ -100,8 +100,9 @@ class GameViewModel(difficultyLevel: String, time: Long) : ViewModel() {
         get() = _currentTime
 
     // The String version of the current time
-    val currentTimeString = Transformations.map(currentTime) { time ->
-        DateUtils.formatElapsedTime(time)
+    val currentTimeString = currentTime.switchMap { time ->
+        val formattedTime = DateUtils.formatElapsedTime(time)
+        MutableLiveData(formattedTime)
     }
 
     // The current score

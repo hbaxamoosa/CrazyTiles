@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -37,11 +36,15 @@ class ScoreFragment : Fragment() {
         val args: ScoreFragmentArgs by navArgs()
         val application = requireNotNull(this.activity).application
         val dataSource = GamesDatabase.getInstance(application).gamesDatabaseDao
-        val sharesPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        val difficultyLevel: String = sharesPrefs.getString("list_preference", "unknown")!!
+        val sharesPrefs: SharedPreferences? = activity?.let {
+            PreferenceManager.getDefaultSharedPreferences(
+                it
+            )
+        }
+        val difficultyLevel: String = sharesPrefs?.getString("list_preference", "unknown")!!
 
         viewModelFactory = ScoreViewModelFactory(args.score, args.winner, difficultyLevel, dataSource)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[ScoreViewModel::class.java]
 
         binding.scoreViewModel = viewModel
 
@@ -50,12 +53,12 @@ class ScoreFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Navigates back to title when button is pressed
-        viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
+        viewModel.eventPlayAgain.observe(viewLifecycleOwner) { playAgain ->
             if (playAgain) {
                 findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToGameFragment())
                 viewModel.onPlayAgainComplete()
             }
-        })
+        }
 
         return binding.root
     }
