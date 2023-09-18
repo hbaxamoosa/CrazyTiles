@@ -35,7 +35,7 @@ android {
         jvmTarget = "1.8"
     }
     namespace 'com.boxofm.crazytiles'
-    compileSdk 33
+    compileSdk 34
 }
 
 dependencies {
