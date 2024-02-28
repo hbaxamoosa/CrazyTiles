@@ -74,7 +74,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation(platform('com.google.firebase:firebase-bom:32.7.2'))
 
     // When using the BoM, you don't specify versions in Firebase library dependencies
 
